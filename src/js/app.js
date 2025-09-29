@@ -61,21 +61,7 @@ const App = {
 
   computed: {
     dateRange() {
-      if (!this.selectedDateRange || !this.selectedDateRange.start || !this.selectedDateRange.end) {
-        return 'Выберите период'
-      }
-
-      const start = new Date(this.selectedDateRange.start + 'T00:00:00')
-      const end = new Date(this.selectedDateRange.end + 'T00:00:00')
-
-      const format = (date) => {
-        const day = date.getDate().toString().padStart(2, '0')
-        const month = (date.getMonth() + 1).toString().padStart(2, '0')
-        const year = date.getFullYear()
-        return `${day}.${month}.${year}`
-      }
-
-      return `${format(start)} - ${format(end)}`
+      return window.formatDateRange(this.selectedDateRange)
     },
 
     isIndeterminate() {
@@ -87,58 +73,42 @@ const App = {
     },
 
     filteredSchools() {
-      const sourceArray = this.searchValue.trim() !== '' ? this.searchSchools : this.schools
-      let filtered = sourceArray
-
-      // Фильтрация по статусу
-      if (this.selectedStatus !== 'all') {
-        filtered = filtered.filter((school) => {
-          const schoolStatus = school.status || 'Нет статуса'
-          if (this.selectedStatus === 'active') {
-            return schoolStatus === 'Действующее'
-          } else if (this.selectedStatus === 'inactive') {
-            return schoolStatus === 'Недействующее'
-          }
-          return false
-        })
-      }
-
-      // Фильтрация по поиску
-      if (this.searchValue.trim() !== '') {
-        const searchTerm = this.searchValue.toLowerCase().trim()
-        filtered = filtered.filter((school) => {
-          return school.name.toLowerCase().includes(searchTerm)
-        })
-        console.log('🔍 Найдено школ:', filtered.length, 'из', this.searchSchools.length)
-      }
-
-      return filtered
+      return window.filterSchools(
+        this.schools,
+        this.searchSchools,
+        this.searchValue,
+        this.selectedStatus
+      )
     },
 
     displayedSchools() {
-      if (this.searchValue.trim() !== '' || this.selectedStatus !== 'all') {
-        const startIndex = (this.filteredCurrentPage - 1) * this.selectedPageSize
-        const endIndex = startIndex + this.selectedPageSize
-        return this.filteredSchools.slice(startIndex, endIndex)
-      } else {
-        return this.schools
-      }
+      return window.getDisplayedSchools(
+        this.filteredSchools,
+        this.schools,
+        this.searchValue,
+        this.selectedStatus,
+        this.filteredCurrentPage,
+        this.selectedPageSize
+      )
     },
 
     filteredTotalPages() {
-      if (this.searchValue.trim() !== '' || this.selectedStatus !== 'all') {
-        return Math.ceil(this.filteredSchools.length / this.selectedPageSize)
-      } else {
-        return this.totalPages
-      }
+      return window.getTotalPages(
+        this.filteredSchools,
+        this.totalPages,
+        this.searchValue,
+        this.selectedStatus,
+        this.selectedPageSize
+      )
     },
 
     currentDisplayPage() {
-      if (this.searchValue.trim() !== '' || this.selectedStatus !== 'all') {
-        return this.filteredCurrentPage
-      } else {
-        return this.currentPage
-      }
+      return window.getCurrentPage(
+        this.filteredCurrentPage,
+        this.currentPage,
+        this.searchValue,
+        this.selectedStatus
+      )
     },
   },
 
@@ -278,52 +248,19 @@ const App = {
     },
 
     handleSelectAll(isSelected) {
-      if (isSelected) {
-        const currentPageIds = this.displayedSchools.map((school) => school.uuid)
-        this.selectedSchools = [...new Set([...this.selectedSchools, ...currentPageIds])]
-      } else {
-        const currentPageIds = this.displayedSchools.map((school) => school.uuid)
-        this.selectedSchools = this.selectedSchools.filter((id) => !currentPageIds.includes(id))
-      }
+      this.selectedSchools = window.handleSelectAll(
+        this.selectedSchools,
+        this.displayedSchools,
+        isSelected
+      )
     },
 
     handleSelectSchool(schoolId, isSelected) {
-      if (isSelected) {
-        if (!this.selectedSchools.includes(schoolId)) {
-          this.selectedSchools.push(schoolId)
-        }
-      } else {
-        const index = this.selectedSchools.indexOf(schoolId)
-        if (index > -1) {
-          this.selectedSchools.splice(index, 1)
-        }
-      }
+      this.selectedSchools = window.handleSelectSchool(this.selectedSchools, schoolId, isSelected)
     },
 
     handleExport() {
-      if (this.selectedSchools.length === 0) return
-
-      const selectedData = this.schools.filter((school) =>
-        this.selectedSchools.includes(school.uuid)
-      )
-
-      let textContent = 'Экспорт школ\n\n'
-      selectedData.forEach((school) => {
-        textContent += `Название: ${school.name}\n`
-        textContent += `Регион: ${school.region}\n`
-        textContent += `Адрес: ${school.address}\n`
-        textContent += `Уровень образования: ${school.education_level}\n`
-        textContent += '─'.repeat(50) + '\n'
-      })
-
-      const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' })
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = `schools_export.txt`
-      link.click()
-
-      alert(`✅ Экспортировано ${selectedData.length} школ в TXT файл`)
+      window.exportSchoolsToTxt(this.selectedSchools, this.schools)
     },
 
     async handlePageChange(page) {
@@ -343,11 +280,9 @@ const App = {
     },
 
     handleSearch() {
-      clearTimeout(this.searchTimeout)
-      this.searchTimeout = setTimeout(() => {
+      window.handleSearch(this.searchValue, () => {
         this.filteredCurrentPage = 1
-        console.log('🔍 Поиск:', this.searchValue)
-      }, 300)
+      })
     },
 
     async handleRetry() {
@@ -356,13 +291,15 @@ const App = {
     },
 
     clearSearch() {
+      window.clearSearch()
       this.searchValue = ''
+      this.filteredCurrentPage = 1
     },
 
     applyDateRange(range) {
+      window.applyDateRange(range)
       this.showCalendar = false
       this.selectedDateRange = range
-      console.log('Выбран диапазон:', range.start, 'до', range.end)
     },
 
     async loadRegions() {

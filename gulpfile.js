@@ -50,18 +50,24 @@ function scripts() {
     fs.mkdirSync('dist/js', { recursive: true })
   }
 
-  console.log('🔧 Собираем JS без минификации...')
+  console.log('🔧 Собираем JS из всех папок...')
 
-  return (
-    gulp
-      .src(['src/js/components/UI/*.js', 'src/js/app.js'])
-      .pipe(concat('app.js'))
-      // .pipe(terser()) // ЗАКОММЕНТИРУЙ НА ВРЕМЯ
-      .pipe(gulp.dest('dist/js'))
-      .on('end', () => {
-        console.log('✅ JS собран без минификации!')
-      })
-  )
+  return gulp
+    .src([
+      // Сначала API и утилиты
+      'src/services/*.js',
+      'src/utils/*.js',
+      'src/composables/*.js',
+      // Потом UI компоненты
+      'src/js/components/UI/*.js',
+      // В конце главный файл
+      'src/js/app.js',
+    ])
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('dist/js'))
+    .on('end', () => {
+      console.log('✅ JS собран из всех папок!')
+    })
 }
 
 // Сервер
