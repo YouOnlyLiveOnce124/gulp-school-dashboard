@@ -1,0 +1,46 @@
+@import '../variables';
+
+.base-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 0;
+
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.base-pagination__pages {
+  display: flex;
+  gap: 4px;
+}
+
+.base-pagination__page {
+  min-width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &--active {
+    background-color: $color-accent-press;
+    color: $color-white;
+    font-weight: 700;
+    cursor: default;
+  }
+}
+
+.base-pagination__nav {
+  padding: 8px 16px;
+}
+
+.base-pagination__ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  color: $color-grey-4;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Schools API</title>
+</head>
+<body>
+    <h1>Тестирование API школ</h1>
+    
+    <button onclick="testSchools()">Тест /api/schools</button>
+    <button onclick="testRegions()">Тест /api/regions</button>
+    
+    <div id="result"></div>
+
+    <script>
+        async function testSchools() {
+            try {
+                const response = await fetch('https://schooldb.skillline.ru/api/schools?page=1&count=5')
+                const data = await response.json()
+                document.getElementById('result').innerHTML = 
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>'
+                console.log('Schools API response:', data)
+            } catch (error) {
+                console.error('Schools API error:', error)
+            }
+        }
+
+        async function testRegions() {
+            try {
+                const response = await fetch('https://schooldb.skillline.ru/api/regions')
+                const data = await response.json()
+                document.getElementById('result').innerHTML = 
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>'
+                console.log('Regions API response:', data)
+            } catch (error) {
+                console.error('Regions API error:', error)
+            }
+        }
+    </script>
+</body>
+</html>

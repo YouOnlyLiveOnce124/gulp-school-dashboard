@@ -1,0 +1,52 @@
+@import '../variables';
+
+.base-input-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+
+.base-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid $color-grey-4;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  background-color: $color-white;
+  color: $color-black-1;
+  transition: all 0.3s ease-out;
+
+  // Placeholder стилизация
+  &::placeholder {
+    color: lighten($color-grey-4, 20%);
+  }
+
+  // Hover состояние
+  &:hover:not(.base-input--disabled) {
+    border-color: $color-black-1;
+  }
+
+  // Focus состояние
+  &:focus {
+    outline: none;
+    border-color: $color-accent-press;
+    box-shadow: 0 0 0 2px rgba($color-accent-press, 0.1);
+  }
+
+  // Error состояние
+  &--error {
+    border-color: #dc3545;
+
+    &:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 2px rgba(#dc3545, 0.1);
+    }
+  }
+
+  // Disabled состояние
+  &--disabled {
+    background-color: lighten($color-grey-4, 40%);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

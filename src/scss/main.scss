@@ -1,0 +1,45 @@
+body {
+  font-family: 'Gotham Pro', Arial, sans-serif;
+  background-color: #dbbfbf;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.base-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.base-button--primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.base-button--primary:hover {
+  background-color: #2563eb;
+}
+
+.base-button--secondary {
+  background-color: #6b7280;
+  color: white;
+}
+
+.base-button--secondary:hover {
+  background-color: #4b5563;
+}
+
+.base-button--accent {
+  background-color: #8b5cf6;
+  color: white;
+}
+
+.base-button--accent:hover {
+  background-color: #7c3aed;
+}

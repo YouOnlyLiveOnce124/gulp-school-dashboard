@@ -1,0 +1,90 @@
+@import '../variables';
+
+.base-table {
+  border: 1px solid $color-grey-4;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.base-table__header {
+  background-color: $color-black-2;
+  color: $color-white;
+  font-weight: 700;
+}
+
+.base-table__header-row {
+  display: grid;
+  grid-template-columns: 40px repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.base-table__header-cell {
+  padding: 16px;
+  text-align: left;
+
+  &--sortable {
+    cursor: pointer;
+
+    &:hover {
+      background-color: lighten($color-black-2, 10%);
+    }
+  }
+}
+
+.base-table__body {
+  background-color: $color-white;
+}
+
+.base-table__row {
+  display: grid;
+  grid-template-columns: 40px repeat(auto-fit, minmax(150px, 1fr));
+  border-bottom: 1px solid lighten($color-grey-4, 30%);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: lighten($color-grey-4, 40%);
+  }
+}
+
+.base-table__cell {
+  padding: 12px 16px;
+}
+
+/* Стили для чекбоксов */
+.base-table__checkbox-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
+.base-table__header-cell.base-table__checkbox-cell {
+  background-color: $color-black-2; // Соответствует заголовку
+}
+
+/* Стили для состояний */
+.base-table__loading,
+.base-table__error,
+.base-table__empty {
+  padding: 40px;
+  text-align: center;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  height: 16px;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
