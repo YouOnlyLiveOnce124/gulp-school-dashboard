@@ -24,5 +24,3 @@ function handleSelectSchool(selectedSchools, schoolId, isSelected) {
   }
   return selectedSchools
 }
-
-console.log('✅ selectionUtils загружен!')

@@ -30,5 +30,3 @@ function filterSchools(schools, searchSchools, searchValue, selectedStatus) {
 
   return filtered
 }
-
-console.log('✅ filterUtils загружен!')

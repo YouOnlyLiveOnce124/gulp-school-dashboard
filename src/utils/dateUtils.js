@@ -26,5 +26,3 @@ function applyDateRange(range, callback) {
   if (callback) callback(range)
   console.log('📅 Выбран диапазон:', range.start, 'до', range.end)
 }
-
-console.log('✅ dateUtils загружен!')

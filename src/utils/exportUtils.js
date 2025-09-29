@@ -30,5 +30,3 @@ function exportSchoolsToTxt(selectedSchools, allSchools) {
 
   alert(`✅ Экспортировано ${selectedData.length} школ в TXT файл`)
 }
-
-console.log('✅ exportUtils загружен!')

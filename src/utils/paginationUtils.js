@@ -37,5 +37,3 @@ function getCurrentPage(filteredCurrentPage, currentPage, searchValue, selectedS
     return currentPage
   }
 }
-
-console.log('✅ paginationUtils загружен!')

@@ -18,5 +18,3 @@ function clearSearch() {
   clearTimeout(searchTimeout)
   searchTimeout = null
 }
-
-console.log('✅ searchUtils загружен!')

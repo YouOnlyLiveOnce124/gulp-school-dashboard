@@ -131,11 +131,9 @@ const App = {
     },
 
     selectedType(newType) {
-      if (newType !== 'all') {
-        alert(
-          'Фильтрация по видам учреждений временно недоступна. API не поддерживает этот параметр.'
-        )
-        this.selectedType = 'all'
+      const validatedType = window.validateSchoolType(newType)
+      if (validatedType !== newType) {
+        this.selectedType = validatedType
       }
     },
   },
@@ -237,14 +235,12 @@ const App = {
     },
 
     clearError() {
-      this.error = null
+      this.error = window.clearError()
     },
 
     // Обработчики UI
     handlePageSizeChange(newSize) {
-      this.selectedPageSize = newSize
-      this.currentPage = 1
-      this.fetchSchools(1, newSize, this.currentRegion, false)
+      window.handlePageSizeChange(newSize, this.fetchSchools, this.currentRegion)
     },
 
     handleSelectAll(isSelected) {
@@ -266,17 +262,19 @@ const App = {
     async handlePageChange(page) {
       this.errorPage = page
       this.clearError()
-
-      if (this.searchValue.trim() !== '' || this.selectedStatus !== 'all') {
-        this.filteredCurrentPage = page
-      } else {
-        await this.fetchSchools(page, this.selectedPageSize, this.currentRegion, false)
-      }
+      await window.handlePageChange(
+        page,
+        this.fetchSchools,
+        this.searchValue,
+        this.selectedStatus,
+        this.currentRegion,
+        this.selectedPageSize
+      )
     },
 
     async handleFirstPage() {
       this.clearError()
-      await this.fetchSchools(1, this.selectedPageSize, this.currentRegion, false)
+      await window.handleFirstPage(this.fetchSchools, this.selectedPageSize, this.currentRegion)
     },
 
     handleSearch() {
@@ -287,7 +285,12 @@ const App = {
 
     async handleRetry() {
       this.clearError()
-      await this.fetchSchools(this.currentPage, this.selectedPageSize, this.currentRegion, false)
+      await window.handleRetry(
+        this.fetchSchools,
+        this.currentPage,
+        this.selectedPageSize,
+        this.currentRegion
+      )
     },
 
     clearSearch() {
@@ -303,19 +306,11 @@ const App = {
     },
 
     async loadRegions() {
-      try {
-        this.regions = await this.getRegions()
-        console.log('✅ Регионы загружены:', this.regions.length, 'шт.')
-      } catch (error) {
-        console.error('❌ Ошибка загрузки регионов:', error)
-      }
+      this.regions = await window.loadRegionsData(window.getRegions)
     },
 
     async init() {
-      await Promise.all([
-        this.fetchSchools(1, this.selectedPageSize, null, false),
-        this.loadRegions(),
-      ])
+      await window.initApp(this.fetchSchools, this.loadRegions, this.selectedPageSize)
     },
   },
 
@@ -444,18 +439,6 @@ const App = {
   `,
 }
 
-// ========== МОНТИРОВАНИЕ ПРИЛОЖЕНИЯ ==========
-console.log('Vue доступен:', typeof Vue !== 'undefined')
-
-// ДЕБАГ: Проверим, загрузились ли компоненты
-console.log('BaseButton доступен:', typeof BaseButton !== 'undefined')
-console.log('BaseInput доступен:', typeof BaseInput !== 'undefined')
-console.log('BaseSelect доступен:', typeof BaseSelect !== 'undefined')
-console.log('BaseTable доступен:', typeof BaseTable !== 'undefined')
-console.log('BasePagination доступен:', typeof BasePagination !== 'undefined')
-console.log('BaseCalendar доступен:', typeof BaseCalendar !== 'undefined')
-console.log('App доступен:', typeof App !== 'undefined')
-
 if (typeof Vue === 'undefined') {
   console.error('❌ Vue не загружен! Проверь подключение в HTML.')
 } else {
@@ -485,5 +468,4 @@ if (typeof Vue === 'undefined') {
   })
 
   app.mount('#app')
-  console.log('✅ Приложение смонтировано!')
 }
