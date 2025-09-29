@@ -140,55 +140,6 @@ const App = {
 
   methods: {
     // API методы
-    async apiRequest(endpoint, params = {}) {
-      const API_BASE_URL = 'https://schooldb.skillline.ru/api'
-      try {
-        const queryParams = new URLSearchParams(params).toString()
-        const url = `${API_BASE_URL}${endpoint}${queryParams ? `?${queryParams}` : ''}`
-
-        console.log('🔄 API Request:', url)
-
-        const response = await fetch(url)
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const data = await response.json()
-
-        if (!data.status) {
-          throw new Error(data.message || 'API returned false status')
-        }
-
-        return data.data
-      } catch (error) {
-        console.error('❌ API Request failed:', error)
-        throw error
-      }
-    },
-
-    async getSchools(page = 1, count = 10, regionId = null, status = null) {
-      const params = { page, count }
-      if (regionId) params.region_id = regionId
-      if (status && status !== 'all') params.status = status
-      return await this.apiRequest('/schools', params)
-    },
-
-    async getRegions() {
-      return await this.apiRequest('/regions')
-    },
-
-    transformSchoolData(schoolsData) {
-      return schoolsData.map((school) => ({
-        uuid: school.uuid,
-        name: school.edu_org?.full_name || 'Нет названия',
-        region: school.edu_org?.region?.name || 'Не указан',
-        address: school.edu_org?.contact_info?.post_address || 'Адрес не указан',
-        education_level:
-          school.supplements?.[0]?.educational_programs?.[0]?.edu_level?.name || 'Не указан',
-        status: school.supplements?.[0]?.status?.name || 'Неизвестно',
-      }))
-    },
 
     async fetchSchools(page = 1, count = 10, regionId = null, isAppend = false) {
       if (!isAppend && page === 1) {
@@ -201,9 +152,11 @@ const App = {
 
       try {
         const safePage = Math.max(1, Math.min(page, 100))
-        const response = await this.getSchools(safePage, count, regionId)
+        // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
+        const response = await window.getSchools(safePage, count, regionId)
 
-        const newSchools = this.transformSchoolData(response.list || [])
+        // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
+        const newSchools = window.transformSchoolData(response.list || [])
 
         if (isAppend) {
           this.schools = [...this.schools, ...newSchools]
@@ -306,7 +259,9 @@ const App = {
     },
 
     async loadRegions() {
-      this.regions = await window.loadRegionsData(window.getRegions)
+      // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
+      this.regions = await window.getRegions()
+      console.log('✅ Регионы загружены:', this.regions.length, 'шт.')
     },
 
     async init() {
