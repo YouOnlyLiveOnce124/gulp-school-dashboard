@@ -63,8 +63,19 @@ const BaseTable = {
   <div class="header-cell-content">
     <span>{{ column.label }}</span>
     <div v-if="column.sortable" class="table-sort">
-      <!-- иконки сортировки -->
-    </div>
+  <div
+    :class="[
+      'table-sort__arrow table-sort__arrow--up',
+      { 'active': sortBy === column.key && sortDirection === 'asc' }
+    ]"
+  ></div>
+  <div
+    :class="[
+      'table-sort__arrow table-sort__arrow--down',
+      { 'active': sortBy === column.key && sortDirection === 'desc' }
+    ]"
+  ></div>
+</div>
   </div>
 </div>
         </div>

@@ -5,12 +5,12 @@
   border-radius: $radius-lg;
   overflow: hidden;
 
-  // Заголовок таблицы
+  // Заголовок таблицы - ч
   &__header {
     &-row {
       display: grid;
       grid-template-columns: 60px repeat(4, 1fr);
-      align-items: center;
+      align-items: stretch; // ← МЕНЯЕМ НА STRETCH чтобы растягивались
       min-height: $height-table-header;
     }
   }
@@ -26,20 +26,21 @@
     font-size: 16px;
     line-height: 130%;
     background: $color-grey-1 !important;
+    display: flex;
+    align-items: center; // ← ВЫРАВНИВАЕМ ПО ЦЕНТРУ
+    min-height: $height-table-header; // ← ДОБАВЛЯЕМ МИНИМАЛЬНУЮ ВЫСОТУ
 
-    // ДЕЛАЕМ ВСЕ ЗАГОЛОВКИ КЛИКАБЕЛЬНЫМИ ДАЖЕ БЕЗ СОРТИРОВКИ
-    &--sortable,
-    &--hoverable {
-      // ← ДОБАВЛЯЕМ НОВЫЙ КЛАСС
+    // СТИЛИ ДЛЯ СОРТИРУЕМЫХ КОЛОНОК
+    &--sortable {
       cursor: pointer;
-      transition: all 0.3s ease;
+    }
+
+    // КОНТЕЙНЕР ДЛЯ ТЕКСТА И ИКОНОК СОРТИРОВКИ
+    .header-cell-content {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      &:hover {
-        background: darken($color-grey-1, 5%) !important;
-      }
+      width: 100%;
     }
   }
 
@@ -49,6 +50,7 @@
     align-items: center;
     justify-content: center;
     padding: $space-4;
+    min-height: $height-table-header; // ← ТАКАЯ ЖЕ ВЫСОТА
 
     input[type='checkbox'] {
       width: 20px;

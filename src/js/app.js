@@ -51,9 +51,9 @@ const App = {
 
       // Колонки таблицы
       tableColumns: [
-        { key: 'name', label: 'Название', sortable: true },
         { key: 'region', label: 'Регион', sortable: true },
-        { key: 'address', label: 'Адрес', sortable: false },
+        { key: 'name', label: 'Название', sortable: true },
+        { key: 'address', label: 'Адрес', sortable: true },
         { key: 'education_level', label: 'Уровень образования', sortable: true },
       ],
     }

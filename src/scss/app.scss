@@ -163,6 +163,35 @@
     &__header {
       .base-table__checkbox-cell:first-child input[type='checkbox'] {
         background: $color-pure-white !important;
+        &:checked {
+          background: $color-black-2 !important;
+
+          &::after {
+            content: '✓' !important;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: $color-white;
+            font-size: 12px;
+            font-weight: bold;
+          }
+        }
+        &:indeterminate {
+          background: $color-black-2 !important;
+
+          &::after {
+            content: '' !important;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 9px;
+            height: 2px;
+            background: $color-white;
+            border-radius: 1px;
+          }
+        }
       }
       &-cell {
         background: $color-grey-1 !important;
