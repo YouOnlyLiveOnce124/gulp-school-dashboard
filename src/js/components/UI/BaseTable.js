@@ -26,9 +26,23 @@ const BaseTable = {
       type: Boolean,
       default: false,
     },
+    sortBy: {
+      type: String,
+      default: '',
+    },
+    sortDirection: {
+      type: String,
+      default: 'asc',
+    },
   },
 
   emits: ['sort', 'retry', 'select-item', 'select-all'],
+
+  methods: {
+    handleSort(columnKey) {
+      this.$emit('sort', columnKey)
+    },
+  },
 
   template: `
     <!-- Обертка таблицы с семантическим тегом -->
@@ -47,37 +61,37 @@ const BaseTable = {
           </div>
 
           <!-- Заголовки колонок -->
-        <div
-  v-for="column in columns"
-  :key="column.key"
-  :class="[
-    'base-table__header-cell',
-    {
-      'base-table__header-cell--sortable': column.sortable,
-      'base-table__header-cell--hoverable': true // ← ДОБАВЛЯЕМ ХОВЕР ДЛЯ ВСЕХ
-    }
-  ]"
-  @click="column.sortable && $emit('sort', column.key)"
-  role="columnheader"
->
-  <div class="header-cell-content">
-    <span>{{ column.label }}</span>
-    <div v-if="column.sortable" class="table-sort">
-  <div
-    :class="[
-      'table-sort__arrow table-sort__arrow--up',
-      { 'active': sortBy === column.key && sortDirection === 'asc' }
-    ]"
-  ></div>
-  <div
-    :class="[
-      'table-sort__arrow table-sort__arrow--down',
-      { 'active': sortBy === column.key && sortDirection === 'desc' }
-    ]"
-  ></div>
-</div>
-  </div>
-</div>
+          <div
+            v-for="column in columns"
+            :key="column.key"
+            :class="[
+              'base-table__header-cell',
+              {
+                'base-table__header-cell--sortable': column.sortable,
+                'base-table__header-cell--hoverable': true
+              }
+            ]"
+            @click="column.sortable && handleSort(column.key)"
+            role="columnheader"
+          >
+            <div class="header-cell-content">
+              <span>{{ column.label }}</span>
+              <div v-if="column.sortable" class="table-sort">
+                <div
+                  :class="[
+                    'table-sort__arrow table-sort__arrow--up',
+                    { 'active': sortBy === column.key && sortDirection === 'asc' }
+                  ]"
+                ></div>
+                <div
+                  :class="[
+                    'table-sort__arrow table-sort__arrow--down',
+                    { 'active': sortBy === column.key && sortDirection === 'desc' }
+                  ]"
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

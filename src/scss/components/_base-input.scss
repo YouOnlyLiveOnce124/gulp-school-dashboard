@@ -57,22 +57,22 @@
 .table-search {
   width: 300px;
   height: 56px;
-  position: relative; // ← ДОБАВИЛИ
+  position: relative;
 
   .base-input {
     width: 300px;
     height: 56px;
-    padding: 12px 45px 12px 16px; // ← ДОБАВИЛИ ПРАВЫЙ ОТСТУП ДЛЯ ИКОНКИ
+    padding: 12px 45px 12px 16px;
     border: 1px solid #d3d3de;
     border-radius: 10px;
     background: $color-pure-white;
     font-family: $font-primary;
     font-size: 16px;
     font-weight: 400;
-    color: #55555c; // ← ТУСКЛЫЙ ЦВЕТ ТЕКСТА
+    color: #55555c;
 
     &::placeholder {
-      color: #55555c; // ← ТУСКЛЫЙ ЦВЕТ ПЛЕЙСХОЛДЕРА
+      color: #55555c;
       font-weight: 400;
       font-size: 16px;
       line-height: 130%;
@@ -98,6 +98,6 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    pointer-events: none; // ← ЧТОБЫ НЕ МЕШАЛА КЛИКАТЬ
+    pointer-events: none;
   }
 }

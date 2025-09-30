@@ -81,17 +81,16 @@
   gap: 8px;
   padding: 12px 16px;
   background: #33d35e !important;
-  color: #0e0e10 !important; // ← УЖЕ НАСЫЩЕННЫЙ ЧЕРНЫЙ
+  color: #0e0e10 !important;
   border: none;
   border-radius: 10px;
   font-family: $font-primary;
-  font-weight: 500; // Medium
+  font-weight: 500;
   font-size: 16px;
   line-height: 130%;
   cursor: pointer;
   transition: all 0.3s ease;
 
-  // Убедимся что цвет точно #0E0E10
   span {
     color: #0e0e10 !important;
     font-weight: 500;
