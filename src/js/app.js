@@ -274,123 +274,150 @@ const App = {
   },
 
   template: `
-    <div id="app">
-      <h1>Таблица учреждений</h1>
-
-      <!-- ВЕРХНЯЯ СТРОКА ФИЛЬТРОВ -->
-      <div class="top-filters">
-        <div class="calendar-placeholder" @click="showCalendar = true">📅 {{ dateRange }}</div>
-
-        <div class="filter-group">
-          <BaseSelect v-model="selectedType" :options="schoolTypes" placeholder="Все виды" />
-        </div>
-
-        <div class="filter-group">
-          <BaseSelect v-model="selectedStatus" :options="statusTypes" placeholder="Все статусы" />
+  <div id="app">
+  <!-- ВЕРХНЯЯ ЧЕРНАЯ ШАПКА -->
+<header class="tech-header-group-1">
+  <!-- Верхняя часть с логотипами -->
+  <div class="tech-header">
+    <div class="header-container">
+      <div class="header-left">
+        <div class="logo">ЛОГО</div>
+      </div>
+      <div class="header-right">
+        <div class="logo-dark">SL</div>
+        <div class="contacts-block">
+          <div>+7 962 253 20 37</div>
+          <div>sales@skillline.ru</div>
+          <div>skillline.ru</div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div v-if="showCalendar" class="calendar-overlay" @click="showCalendar = false">
-        <div class="calendar-container" @click.stop>
-          <BaseCalendar @save="applyDateRange" @cancel="showCalendar = false" />
-        </div>
+  <!-- Нижняя часть с текстом -->
+  <div class="tech-head-container">
+    <div class="tech-head-2xl">Тестовое задание</div>
+  </div>
+</header>
+
+  <main class="main-content">
+    <h1>Таблица учреждений</h1>
+
+    <!-- ВЕРХНЯЯ СТРОКА ФИЛЬТРОВ -->
+    <div class="top-filters">
+      <div class="calendar-placeholder" @click="showCalendar = true">📅 {{ dateRange }}</div>
+
+      <div class="filter-group">
+        <BaseSelect v-model="selectedType" :options="schoolTypes" placeholder="Все виды" />
       </div>
 
-      <!-- ДЕЙСТВИЯ С ТАБЛИЦЕЙ -->
-      <div class="table-actions">
-        <BaseButton
-          :disabled="selectedSchools.length === 0"
-          @click="handleExport"
-          variant="accent"
-          class="download-btn"
-        >
-          📥 СКАЧАТЬ ({{ selectedSchools.length }})
-        </BaseButton>
-
-        <div class="records-info">
-          <span class="records-text">Показывать по:</span>
-          <BaseSelect
-            v-model="selectedPageSize"
-            :options="pageSizes.map((size) => ({ value: size, label: String(size) }))"
-            @update:modelValue="handlePageSizeChange"
-            class="page-size-select"
-          />
-        </div>
+      <div class="filter-group">
+        <BaseSelect v-model="selectedStatus" :options="statusTypes" placeholder="Все статусы" />
       </div>
+    </div>
 
-      <!-- ФИЛЬТРЫ ПО РЕГИОНАМ -->
-      <div class="filters-section">
-        <div class="filter-group">
-          <label class="filter-label">Регион:</label>
-          <BaseSelect
-            v-model="selectedRegion"
-            :options="[
-              { value: '', label: 'Все регионы' },
-              ...regions.map((r) => ({ value: r.id, label: r.name })),
-            ]"
-            placeholder="Выберите регион"
-          />
-        </div>
+    <div v-if="showCalendar" class="calendar-overlay" @click="showCalendar = false">
+      <div class="calendar-container" @click.stop>
+        <BaseCalendar @save="applyDateRange" @cancel="showCalendar = false" />
       </div>
+    </div>
 
-      <!-- ПОИСК -->
-      <div class="search-section">
-        <div class="search-with-clear">
-          <BaseInput
-            v-model="searchValue"
-            placeholder="Поиск по названию школы..."
-            @input="handleSearch"
-          />
-          <BaseButton
-            v-if="searchValue"
-            @click="clearSearch"
-            variant="secondary"
-            class="clear-search-btn"
-          >
-            ×
-          </BaseButton>
-        </div>
-        <div v-if="searchValue.trim() !== ''" class="search-results-info">
-          🔍 Найдено: <strong>{{ filteredSchools.length }}</strong> школ по запросу "{{ searchValue }}"
-        </div>
-      </div>
+    <!-- ДЕЙСТВИЯ С ТАБЛИЦЕЙ -->
+    <div class="table-actions">
+      <BaseButton
+        :disabled="selectedSchools.length === 0"
+        @click="handleExport"
+        variant="accent"
+        class="download-btn"
+      >
+        📥 СКАЧАТЬ ({{ selectedSchools.length }})
+      </BaseButton>
 
-      <!-- СОДЕРЖИМОЕ -->
-      <div v-if="loading" class="status-message">
-        <div class="loading-spinner">Загрузка данных...</div>
-      </div>
-
-      <div v-else-if="error" class="status-message error">
-        <div class="error-icon">⚠️</div>
-        <h3>Временная проблема</h3>
-        <p>Страница {{ errorPage }} временно недоступна</p>
-        <p class="error-detail">Попробуйте выбрать другую страницу</p>
-
-        <div class="button-group">
-          <BaseButton @click="handleRetry" variant="primary">Повторить попытку</BaseButton>
-          <BaseButton @click="handleFirstPage" variant="secondary">На первую страницу</BaseButton>
-        </div>
-      </div>
-
-      <div v-else>
-        <BaseTable
-          :columns="tableColumns"
-          :data="displayedSchools"
-          :loading="loading"
-          :selected-items="selectedSchools"
-          :is-indeterminate="isIndeterminate"
-          @select-all="handleSelectAll"
-          @select-item="handleSelectSchool"
-        />
-
-        <BasePagination
-          v-if="filteredTotalPages > 1"
-          :current-page="currentDisplayPage"
-          :total-pages="filteredTotalPages"
-          @page-change="handlePageChange"
+      <div class="records-info">
+        <span class="records-text">Показывать по:</span>
+        <BaseSelect
+          v-model="selectedPageSize"
+          :options="pageSizes.map((size) => ({ value: size, label: String(size) }))"
+          @update:modelValue="handlePageSizeChange"
+          class="page-size-select"
         />
       </div>
     </div>
+
+    <!-- ФИЛЬТРЫ ПО РЕГИОНАМ -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label class="filter-label">Регион:</label>
+        <BaseSelect
+          v-model="selectedRegion"
+          :options="[
+            { value: '', label: 'Все регионы' },
+            ...regions.map((r) => ({ value: r.id, label: r.name })),
+          ]"
+          placeholder="Выберите регион"
+        />
+      </div>
+    </div>
+
+    <!-- ПОИСК -->
+    <div class="search-section">
+      <div class="search-with-clear">
+        <BaseInput
+          v-model="searchValue"
+          placeholder="Поиск по названию школы..."
+          @input="handleSearch"
+        />
+        <BaseButton
+          v-if="searchValue"
+          @click="clearSearch"
+          variant="secondary"
+          class="clear-search-btn"
+        >
+          ×
+        </BaseButton>
+      </div>
+      <div v-if="searchValue.trim() !== ''" class="search-results-info">
+        🔍 Найдено: <strong>{{ filteredSchools.length }}</strong> школ по запросу "{{ searchValue }}"
+      </div>
+    </div>
+
+    <!-- СОДЕРЖИМОЕ -->
+    <div v-if="loading" class="status-message">
+      <div class="loading-spinner">Загрузка данных...</div>
+    </div>
+
+    <div v-else-if="error" class="status-message error">
+      <div class="error-icon">⚠️</div>
+      <h3>Временная проблема</h3>
+      <p>Страница {{ errorPage }} временно недоступна</p>
+      <p class="error-detail">Попробуйте выбрать другую страницу</p>
+
+      <div class="button-group">
+        <BaseButton @click="handleRetry" variant="primary">Повторить попытку</BaseButton>
+        <BaseButton @click="handleFirstPage" variant="secondary">На первую страницу</BaseButton>
+      </div>
+    </div>
+
+    <div v-else>
+      <BaseTable
+        :columns="tableColumns"
+        :data="displayedSchools"
+        :loading="loading"
+        :selected-items="selectedSchools"
+        :is-indeterminate="isIndeterminate"
+        @select-all="handleSelectAll"
+        @select-item="handleSelectSchool"
+      />
+
+      <BasePagination
+        v-if="filteredTotalPages > 1"
+        :current-page="currentDisplayPage"
+        :total-pages="filteredTotalPages"
+        @page-change="handlePageChange"
+      />
+    </div>
+  </main>
+</div>
   `,
 }
 

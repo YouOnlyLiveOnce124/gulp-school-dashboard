@@ -1,10 +1,12 @@
-@import './variables';
-@import './base';
-@import './app';
+@import 'variables';
+@import 'base';
+@import 'app';
+
 // Компоненты
-@import './components/base-button';
-@import './components/base-input';
-@import './components/base-select';
-@import './components/base-table';
-@import './components/base-pagination';
-@import './components/base-calendar';
+@import 'components/header'; // ← ДОБАВИЛИ ШАПКУ
+@import 'components/base-button';
+@import 'components/base-input';
+@import 'components/base-select';
+@import 'components/base-table';
+@import 'components/base-pagination';
+@import 'components/base-calendar';
