@@ -1,0 +1,152 @@
+@import 'variables';
+
+// Белая полоса между шапкой и контентом
+.content-spacer {
+  height: 48px;
+  background: $color-pure-white;
+  width: 100%;
+}
+
+// Основной контейнер страницы с серым фоном
+.page-container {
+  background: $color-white; // ← СЕРЫЙ ФОН #F1F4FD
+  min-height: calc(100vh - 372px - 48px);
+  padding: $space-8 0;
+}
+
+// Белый блок с таблицей
+.table-section {
+  background: $color-pure-white;
+  border-radius: $radius-xl;
+  padding: $space-11;
+  margin: 0 $space-5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  width: calc(100% - #{$space-5} * 2);
+
+  @media (max-width: 768px) {
+    margin: 0 $space-4;
+    width: calc(100% - #{$space-4} * 2);
+    padding: $space-8;
+  }
+}
+
+// Остальные стили без изменений
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  margin-bottom: $space-7;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: $space-5;
+    height: auto;
+  }
+}
+
+.table-title {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: $text-display;
+  line-height: 120%;
+  color: $color-black-1;
+
+  @media (max-width: 768px) {
+    font-size: $text-h4;
+    text-align: center;
+  }
+}
+
+// Панель кнопок (Bttn)
+.table-actions {
+  display: flex;
+  background-color: #ffffff;
+  gap: 20px;
+  align-items: center;
+  height: 56px;
+  width: 467px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 467px;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: auto;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: $space-4;
+  }
+}
+
+// Поиск (Input)
+.table-search {
+  width: 300px;
+  height: 56px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+// Кнопка скачивания в основном блоке
+.download-btn-main {
+  height: 56px;
+  min-width: 147px;
+}
+
+// Панель действий (фильтр регионов + пагинация)
+.table-actions-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: $space-7 0;
+  height: 56px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: $space-5;
+    align-items: stretch;
+    height: auto;
+  }
+}
+
+.region-filter {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+// Адаптив для верхних фильтров внутри таблицы
+.table-section .top-filters {
+  margin-bottom: $space-7;
+  padding: 0;
+  border-bottom: none;
+  height: auto;
+  background: transparent; // ← УБЕДИСЬ ЧТО ФОН ПРОЗРАЧНЫЙ
+}
+
+// Результаты поиска внутри таблицы
+.table-section .search-results-info {
+  margin: $space-5 0;
+  padding: 0;
+  border: none;
+  background: none;
+  height: auto;
+}
+
+// Сообщения статуса внутри таблицы
+.table-section .status-message {
+  padding: $space-8;
+  text-align: center;
+  background: none;
+  border: none;
+  height: auto;
+}

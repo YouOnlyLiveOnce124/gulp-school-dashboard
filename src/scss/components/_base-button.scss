@@ -70,3 +70,60 @@
     }
   }
 }
+
+// СТИЛИ ДЛЯ КНОПКИ СКАЧИВАНИЯ В ТАБЛИЦЕ
+.download-btn-main {
+  width: 147px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #33d35e !important;
+  color: #0e0e10 !important; // ← УЖЕ НАСЫЩЕННЫЙ ЧЕРНЫЙ
+  border: none;
+  border-radius: 10px;
+  font-family: $font-primary;
+  font-weight: 500; // Medium
+  font-size: 16px;
+  line-height: 130%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  // Убедимся что цвет точно #0E0E10
+  span {
+    color: #0e0e10 !important;
+    font-weight: 500;
+  }
+
+  // Иконка скачивания
+  .download-icon {
+    width: 17px;
+    height: 21px;
+    background-image: url('../images/icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &:hover:not(:disabled) {
+    background: $color-accent-hover !important;
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    background: $color-accent-press !important;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    max-width: 300px;
+  }
+}

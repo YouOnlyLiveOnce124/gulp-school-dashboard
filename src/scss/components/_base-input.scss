@@ -53,15 +53,51 @@
   }
 }
 
-// Варианты размеров (если понадобятся)
-.base-input--sm {
-  height: 44px;
-  padding: $space-3 $space-4;
-  font-size: $text-body-sm;
-}
+// СТИЛИ ДЛЯ ПОИСКА В ТАБЛИЦЕ
+.table-search {
+  width: 300px;
+  height: 56px;
+  position: relative; // ← ДОБАВИЛИ
 
-.base-input--lg {
-  height: 60px;
-  padding: $space-5 $space-6;
-  font-size: $text-body-lg;
+  .base-input {
+    width: 300px;
+    height: 56px;
+    padding: 12px 45px 12px 16px; // ← ДОБАВИЛИ ПРАВЫЙ ОТСТУП ДЛЯ ИКОНКИ
+    border: 1px solid #d3d3de;
+    border-radius: 10px;
+    background: $color-pure-white;
+    font-family: $font-primary;
+    font-size: 16px;
+    font-weight: 400;
+    color: #55555c; // ← ТУСКЛЫЙ ЦВЕТ ТЕКСТА
+
+    &::placeholder {
+      color: #55555c; // ← ТУСКЛЫЙ ЦВЕТ ПЛЕЙСХОЛДЕРА
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 130%;
+    }
+
+    &:focus {
+      border-color: $color-accent;
+      box-shadow: 0 0 0 2px rgba($color-accent, 0.1);
+      outline: none;
+    }
+  }
+
+  // ИКОНКА ПОИСКА
+  &::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-image: url('../images/search.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none; // ← ЧТОБЫ НЕ МЕШАЛА КЛИКАТЬ
+  }
 }

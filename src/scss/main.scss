@@ -3,7 +3,8 @@
 @import 'app';
 
 // Компоненты
-@import 'components/header'; // ← ДОБАВИЛИ ШАПКУ
+@import 'components/header';
+@import 'components/table-section';
 @import 'components/base-button';
 @import 'components/base-input';
 @import 'components/base-select';

@@ -298,123 +298,128 @@ const App = {
   </div>
 </header>
 
-  <main class="main-content">
-    <h1>Таблица учреждений</h1>
+<main class="main-content">
+  <!-- БЕЛАЯ ПОЛОСА МЕЖДУ ШАПКОЙ И КОНТЕНТОМ -->
+  <div class="content-spacer"></div>
 
-    <!-- ВЕРХНЯЯ СТРОКА ФИЛЬТРОВ -->
-    <div class="top-filters">
-      <div class="calendar-placeholder" @click="showCalendar = true">📅 {{ dateRange }}</div>
+  <!-- ОСНОВНОЙ КОНТЕЙНЕР С СЕРЫМ ФОНОМ -->
+  <div class="page-container">
 
-      <div class="filter-group">
-        <BaseSelect v-model="selectedType" :options="schoolTypes" placeholder="Все виды" />
+    <!-- БЕЛЫЙ БЛОК С ТАБЛИЦЕЙ -->
+    <section class="table-section">
+      <!-- ВЕРХНЯЯ ПАНЕЛЬ С ЗАГОЛОВКОМ И КНОПКАМИ -->
+      <div class="table-header">
+        <h1 class="table-title">Таблица учреждений</h1>
+
+        <div class="table-actions">
+  <!-- ПОИСК -->
+  <div class="table-search">
+    <BaseInput
+      v-model="searchValue"
+      placeholder="Поиск"
+      @input="handleSearch"
+    />
+  </div>
+
+  <!-- КНОПКА СКАЧИВАНИЯ -->
+  <button class="download-btn-main" @click="handleExport" :disabled="selectedSchools.length === 0">
+    <div class="download-icon"></div>
+    <span>Скачать</span>
+  </button>
+</div>
       </div>
 
-      <div class="filter-group">
-        <BaseSelect v-model="selectedStatus" :options="statusTypes" placeholder="Все статусы" />
-      </div>
-    </div>
+      <!-- ВЕРХНИЕ ФИЛЬТРЫ (ПЕРИОД, ВИДЫ, СТАТУСЫ) -->
+      <div class="top-filters">
+        <div class="calendar-placeholder" @click="showCalendar = true">📅 {{ dateRange }}</div>
 
-    <div v-if="showCalendar" class="calendar-overlay" @click="showCalendar = false">
-      <div class="calendar-container" @click.stop>
-        <BaseCalendar @save="applyDateRange" @cancel="showCalendar = false" />
-      </div>
-    </div>
+        <div class="filter-group">
+          <BaseSelect v-model="selectedType" :options="schoolTypes" placeholder="Все виды" />
+        </div>
 
-    <!-- ДЕЙСТВИЯ С ТАБЛИЦЕЙ -->
-    <div class="table-actions">
-      <BaseButton
-        :disabled="selectedSchools.length === 0"
-        @click="handleExport"
-        variant="accent"
-        class="download-btn"
-      >
-        📥 СКАЧАТЬ ({{ selectedSchools.length }})
-      </BaseButton>
-
-      <div class="records-info">
-        <span class="records-text">Показывать по:</span>
-        <BaseSelect
-          v-model="selectedPageSize"
-          :options="pageSizes.map((size) => ({ value: size, label: String(size) }))"
-          @update:modelValue="handlePageSizeChange"
-          class="page-size-select"
-        />
+        <div class="filter-group">
+          <BaseSelect v-model="selectedStatus" :options="statusTypes" placeholder="Все статусы" />
+        </div>
       </div>
-    </div>
 
-    <!-- ФИЛЬТРЫ ПО РЕГИОНАМ -->
-    <div class="filters-section">
-      <div class="filter-group">
-        <label class="filter-label">Регион:</label>
-        <BaseSelect
-          v-model="selectedRegion"
-          :options="[
-            { value: '', label: 'Все регионы' },
-            ...regions.map((r) => ({ value: r.id, label: r.name })),
-          ]"
-          placeholder="Выберите регион"
-        />
+      <!-- КАЛЕНДАРЬ -->
+      <div v-if="showCalendar" class="calendar-overlay" @click="showCalendar = false">
+        <div class="calendar-container" @click.stop>
+          <BaseCalendar @save="applyDateRange" @cancel="showCalendar = false" />
+        </div>
       </div>
-    </div>
 
-    <!-- ПОИСК -->
-    <div class="search-section">
-      <div class="search-with-clear">
-        <BaseInput
-          v-model="searchValue"
-          placeholder="Поиск по названию школы..."
-          @input="handleSearch"
-        />
-        <BaseButton
-          v-if="searchValue"
-          @click="clearSearch"
-          variant="secondary"
-          class="clear-search-btn"
-        >
-          ×
-        </BaseButton>
+      <!-- ПАНЕЛЬ ДЕЙСТВИЙ (ФИЛЬТР РЕГИОНОВ + ПАГИНАЦИЯ) -->
+      <div class="table-actions-panel">
+        <!-- ФИЛЬТР РЕГИОНОВ СЛЕВА -->
+        <div class="region-filter">
+          <BaseSelect
+            v-model="selectedRegion"
+            :options="[
+              { value: '', label: 'Все регионы' },
+              ...regions.map((r) => ({ value: r.id, label: r.name })),
+            ]"
+            placeholder="Выберите регион"
+          />
+        </div>
+
+        <!-- ПАГИНАЦИЯ СПРАВА -->
+        <div class="records-info">
+          <span class="records-text">Показывать по:</span>
+          <BaseSelect
+            v-model="selectedPageSize"
+            :options="pageSizes.map((size) => ({ value: size, label: String(size) }))"
+            @update:modelValue="handlePageSizeChange"
+            class="page-size-select"
+          />
+        </div>
       </div>
+
+      <!-- РЕЗУЛЬТАТЫ ПОИСКА -->
       <div v-if="searchValue.trim() !== ''" class="search-results-info">
         🔍 Найдено: <strong>{{ filteredSchools.length }}</strong> школ по запросу "{{ searchValue }}"
       </div>
-    </div>
 
-    <!-- СОДЕРЖИМОЕ -->
-    <div v-if="loading" class="status-message">
-      <div class="loading-spinner">Загрузка данных...</div>
-    </div>
-
-    <div v-else-if="error" class="status-message error">
-      <div class="error-icon">⚠️</div>
-      <h3>Временная проблема</h3>
-      <p>Страница {{ errorPage }} временно недоступна</p>
-      <p class="error-detail">Попробуйте выбрать другую страницу</p>
-
-      <div class="button-group">
-        <BaseButton @click="handleRetry" variant="primary">Повторить попытку</BaseButton>
-        <BaseButton @click="handleFirstPage" variant="secondary">На первую страницу</BaseButton>
+      <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
+      <div v-if="loading" class="status-message">
+        <div class="loading-spinner">Загрузка данных...</div>
       </div>
-    </div>
 
-    <div v-else>
-      <BaseTable
-        :columns="tableColumns"
-        :data="displayedSchools"
-        :loading="loading"
-        :selected-items="selectedSchools"
-        :is-indeterminate="isIndeterminate"
-        @select-all="handleSelectAll"
-        @select-item="handleSelectSchool"
-      />
+      <div v-else-if="error" class="status-message error">
+        <div class="error-icon">⚠️</div>
+        <h3>Временная проблема</h3>
+        <p>Страница {{ errorPage }} временно недоступна</p>
+        <p class="error-detail">Попробуйте выбрать другую страницу</p>
 
-      <BasePagination
-        v-if="filteredTotalPages > 1"
-        :current-page="currentDisplayPage"
-        :total-pages="filteredTotalPages"
-        @page-change="handlePageChange"
-      />
-    </div>
-  </main>
+        <div class="button-group">
+          <BaseButton @click="handleRetry" variant="primary">Повторить попытку</BaseButton>
+          <BaseButton @click="handleFirstPage" variant="secondary">На первую страницу</BaseButton>
+        </div>
+      </div>
+
+      <div v-else>
+        <!-- ТАБЛИЦА С ДАННЫМИ -->
+        <BaseTable
+          :columns="tableColumns"
+          :data="displayedSchools"
+          :loading="loading"
+          :selected-items="selectedSchools"
+          :is-indeterminate="isIndeterminate"
+          @select-all="handleSelectAll"
+          @select-item="handleSelectSchool"
+        />
+
+        <!-- ПАГИНАЦИЯ ВНИЗУ -->
+        <BasePagination
+          v-if="filteredTotalPages > 1"
+          :current-page="currentDisplayPage"
+          :total-pages="filteredTotalPages"
+          @page-change="handlePageChange"
+        />
+      </div>
+    </section>
+  </div>
+</main>
 </div>
   `,
 }

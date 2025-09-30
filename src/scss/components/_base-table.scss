@@ -13,7 +13,7 @@
 
     &-row {
       display: grid;
-      grid-template-columns: 60px 1fr 1fr 1fr 1fr; // Чекбокс + 4 колонки
+      grid-template-columns: 60px repeat(4, 1fr); // Чекбокс + 4 адаптивные колонки
       align-items: center;
       min-height: $height-table-header;
     }
@@ -103,7 +103,7 @@
   // Строки данных
   &__row {
     display: grid;
-    grid-template-columns: 60px 1fr 1fr 1fr 1fr; // Чекбокс + 4 колонки
+    grid-template-columns: 60px repeat(4, 1fr); // Чекбокс + 4 адаптивные колонки
     align-items: center;
     min-height: $height-table-row;
     border-bottom: 1px solid $color-grey-2;
@@ -150,7 +150,7 @@
   // Скелетон строки
   &__skeleton-row {
     display: grid;
-    grid-template-columns: 60px 1fr 1fr 1fr 1fr;
+    grid-template-columns: 60px repeat(4, 1fr);
     align-items: center;
     min-height: $height-table-row;
     margin-bottom: $space-3;
@@ -211,13 +211,15 @@
 @media (max-width: 1024px) {
   .base-table {
     &__header-row,
-    &__row {
-      grid-template-columns: 50px 1fr 1fr 1fr; // Чекбокс + 3 колонки
+    &__row,
+    &__skeleton-row {
+      grid-template-columns: 50px repeat(3, 1fr); // Чекбокс + 3 адаптивные колонки
     }
 
     // Скрываем последнюю колонку на планшете
     &__header-cell:nth-child(5),
-    &__cell:nth-child(5) {
+    &__cell:nth-child(5),
+    &__skeleton-cell:nth-child(5) {
       display: none;
     }
   }
@@ -228,20 +230,24 @@
     border-radius: $radius-md;
 
     &__header-row,
-    &__row {
-      grid-template-columns: 40px 1fr 1fr; // Чекбокс + 2 колонки
+    &__row,
+    &__skeleton-row {
+      grid-template-columns: 40px repeat(2, 1fr); // Чекбокс + 2 адаптивные колонки
     }
 
     // Скрываем дополнительные колонки на мобильных
     &__header-cell:nth-child(4),
     &__header-cell:nth-child(5),
     &__cell:nth-child(4),
-    &__cell:nth-child(5) {
+    &__cell:nth-child(5),
+    &__skeleton-cell:nth-child(4),
+    &__skeleton-cell:nth-child(5) {
       display: none;
     }
 
     &__header-cell,
-    &__cell {
+    &__cell,
+    &__skeleton-cell {
       padding: $space-3 $space-4;
       font-size: $text-body-sm;
     }
@@ -260,8 +266,9 @@
 @media (max-width: 480px) {
   .base-table {
     &__header-row,
-    &__row {
-      grid-template-columns: 35px 1fr; // Чекбокс + 1 колонка
+    &__row,
+    &__skeleton-row {
+      grid-template-columns: 35px 1fr; // Чекбокс + 1 адаптивная колонка
     }
 
     // Оставляем только первую колонку на маленьких экранах
@@ -270,7 +277,10 @@
     &__header-cell:nth-child(5),
     &__cell:nth-child(3),
     &__cell:nth-child(4),
-    &__cell:nth-child(5) {
+    &__cell:nth-child(5),
+    &__skeleton-cell:nth-child(3),
+    &__skeleton-cell:nth-child(4),
+    &__skeleton-cell:nth-child(5) {
       display: none;
     }
   }
