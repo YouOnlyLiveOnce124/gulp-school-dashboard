@@ -14,7 +14,7 @@ const paths = {
     html: 'src/*.html',
     scss: 'src/scss/main.scss',
     js: 'src/js/app.js',
-    images: 'src/images/**/*', // ← ДОБАВЛЕНО ДЛЯ ИЗОБРАЖЕНИЙ
+    images: 'src/images/**/*',
     assets: 'src/assets/**/*',
   },
   dist: 'dist',

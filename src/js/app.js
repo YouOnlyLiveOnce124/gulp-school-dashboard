@@ -329,25 +329,53 @@ const App = {
 </div>
       </div>
 
-      <!-- ВЕРХНИЕ ФИЛЬТРЫ (ПЕРИОД, ВИДЫ, СТАТУСЫ) -->
-      <div class="top-filters">
-        <div class="calendar-placeholder" @click="showCalendar = true">📅 {{ dateRange }}</div>
+      <!-- ВЕРХНИЕ ФИЛЬТРЫ -->
+<div class="filters-row">
+  <!-- КАЛЕНДАРЬ -->
+  <div class="filter-item">
+    <div class="calendar-filter" @click="showCalendar = true">
+      <div class="calendar-icon"></div>
+      <span class="calendar-text">{{ dateRange || 'Выберите период' }}</span>
+    </div>
+  </div>
 
-        <div class="filter-group">
-          <BaseSelect v-model="selectedType" :options="schoolTypes" placeholder="Все виды" />
-        </div>
+  <!-- ВСЕ РЕГИОНЫ -->
+  <div class="filter-item filter-select">
+    <BaseSelect
+      v-model="selectedRegion"
+      :options="[
+        { value: '', label: 'Все регионы' },
+        ...regions.map(r => ({ value: r.id, label: r.name }))
+      ]"
+      placeholder="Все регионы"
+    />
+  </div>
 
-        <div class="filter-group">
-          <BaseSelect v-model="selectedStatus" :options="statusTypes" placeholder="Все статусы" />
-        </div>
-      </div>
+  <!-- ВСЕ ВИДЫ -->
+  <div class="filter-item filter-select">
+    <BaseSelect
+      v-model="selectedType"
+      :options="schoolTypes"
+      placeholder="Все виды"
+    />
+  </div>
 
-      <!-- КАЛЕНДАРЬ -->
-      <div v-if="showCalendar" class="calendar-overlay" @click="showCalendar = false">
-        <div class="calendar-container" @click.stop>
-          <BaseCalendar @save="applyDateRange" @cancel="showCalendar = false" />
-        </div>
-      </div>
+  <!-- ВСЕ СТАТУСЫ -->
+  <div class="filter-item filter-select">
+    <BaseSelect
+      v-model="selectedStatus"
+      :options="statusTypes"
+      placeholder="Все статусы"
+    />
+  </div>
+</div>
+
+<!-- КАЛЕНДАРЬ (остается как было) -->
+<div v-if="showCalendar" class="calendar-overlay" @click="showCalendar = false">
+  <div class="calendar-container" @click.stop>
+    <BaseCalendar @save="applyDateRange" @cancel="showCalendar = false" />
+  </div>
+</div>
 
       <!-- ПАНЕЛЬ ДЕЙСТВИЙ (ФИЛЬТР РЕГИОНОВ + ПАГИНАЦИЯ) -->
       <div class="table-actions-panel">

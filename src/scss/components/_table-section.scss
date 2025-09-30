@@ -30,18 +30,20 @@
   }
 }
 
-// Остальные стили без изменений
+// Верхняя панель (Table/Cont)
 .table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 56px;
   margin-bottom: $space-7;
+  padding: 0 8px; // ← ДОБАВИЛИ ВНУТРЕННИЕ ОТСТУПЫ
 
   @media (max-width: 768px) {
     flex-direction: column;
     gap: $space-5;
     height: auto;
+    padding: 0; // ← НА МОБИЛЬНЫХ УБИРАЕМ
   }
 }
 
@@ -65,7 +67,7 @@
   gap: 20px;
   align-items: center;
   height: 56px;
-  width: 467px;
+  width: 460px;
 
   @media (max-width: 768px) {
     width: 100%;

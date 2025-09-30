@@ -1,0 +1,102 @@
+@import '../variables';
+
+// Основной контейнер фильтров
+.filters-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  height: 56px;
+  margin-bottom: $space-7;
+
+  @media (max-width: 1200px) {
+    flex-wrap: wrap;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: $space-4;
+  }
+}
+
+// Общие стили для всех фильтров
+.filter-item {
+  flex: 1;
+  min-width: 0;
+  height: 56px;
+
+  @media (max-width: 1200px) {
+    flex: 0 0 calc(50% - 8px);
+  }
+
+  @media (max-width: 768px) {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+}
+
+// Стили для календаря
+.calendar-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 56px;
+  padding: 12px 16px;
+  border: 1px solid #d3d3de;
+  border-radius: 10px;
+  background: $color-pure-white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $color-black-1;
+  }
+
+  .calendar-icon {
+    width: 21px;
+    height: 21px;
+    background-image: url('../images/calendar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .calendar-text {
+    font-family: $font-primary;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 130%;
+    color: #0e0e10;
+    flex: 1;
+  }
+}
+
+// Стили для селектов (Все регионы, Все виды, Все статусы)
+.filter-select {
+  .base-select__trigger {
+    height: 56px;
+    padding: 12px 16px;
+    border: 1px solid #d3d3de;
+    border-radius: 10px;
+    background: $color-pure-white;
+
+    .base-select__value {
+      font-family: $font-primary;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 130%;
+      color: #0e0e10;
+    }
+
+    .base-select__arrow {
+      background-image: url('../images/arrow-down.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 24px;
+      height: 24px;
+      color: transparent; // Скрываем текстовую стрелку
+    }
+  }
+}
