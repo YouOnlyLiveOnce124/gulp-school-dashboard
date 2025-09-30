@@ -12,7 +12,7 @@ const del = require('del')
 const paths = {
   src: {
     html: 'src/*.html',
-    scss: 'src/scss/main.scss',
+    scss: 'src/scss/main.scss', // ← ТОЛЬКО главный файл, не все SCSS
     js: 'src/js/app.js',
     assets: 'src/assets/**/*',
   },

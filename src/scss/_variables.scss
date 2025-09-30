@@ -9,6 +9,9 @@ $color-grey-4: #55555c;
 $color-accent: #1a7b3c;
 $color-accent-hover: #24c14e;
 $color-accent-press: #168240;
+$color-error: #eb5757;
+$color-success: #27ae60;
+$color-warning: #f2994a;
 
 // Типографика
 $font-primary: 'Gotham Pro', sans-serif;
@@ -17,20 +20,40 @@ $font-weight-medium: 500;
 $font-weight-bold: 700;
 
 // Размеры текста
+$text-h1: 72px;
 $text-h2: 60px;
+$text-h3: 48px;
+$text-h4: 36px;
+$text-h5: 24px;
+$text-h6: 20px;
+$text-body-lg: 18px;
 $text-body: 16px;
 $text-body-sm: 14px;
+$text-caption: 12px;
 
 // Отступы
+$space-1: 4px;
+$space-2: 6px;
 $space-3: 8px;
 $space-4: 12px;
 $space-5: 16px;
 $space-6: 20px;
+$space-7: 24px;
+$space-8: 32px;
+$space-9: 40px;
+$space-10: 48px;
+$space-11: 56px;
+$space-12: 64px;
 
 // Радиусы
+$radius-sm: 4px;
 $radius-md: 8px;
 $radius-lg: 10px;
+$radius-xl: 12px;
+$radius-full: 50%;
 
 // Высоты
 $height-button: 53px;
 $height-input: 53px;
+$height-table-header: 56px;
+$height-table-row: 56px;
