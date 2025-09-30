@@ -3,99 +3,157 @@
 .base-select {
   position: relative;
   width: 100%;
-  min-width: 200px;
 
+  // Disabled состояние
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
-  }
-}
 
-.base-select__trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border: 1px solid $color-grey-4;
-  border-radius: 8px;
-  background-color: $color-white;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-
-  &:hover {
-    border-color: $color-black-1;
-  }
-}
-
-.base-select--open .base-select__trigger {
-  border-color: $color-accent-press;
-  box-shadow: 0 0 0 2px rgba($color-accent-press, 0.1);
-}
-
-.base-select__value {
-  color: $color-black-1;
-}
-
-.base-select__placeholder {
-  color: lighten($color-grey-4, 20%);
-}
-
-.base-select__arrow {
-  transition: transform 0.3s ease-out;
-  color: $color-grey-4;
-}
-
-.base-select--open .base-select__arrow {
-  transform: rotate(180deg);
-}
-
-.base-select__dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: $color-white;
-  border: 1px solid $color-grey-4;
-  border-radius: 8px;
-  margin-top: 4px;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.base-select__option {
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease-out;
-  border-bottom: 1px solid lighten($color-grey-4, 30%);
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &:hover {
-    background-color: lighten($color-accent-press, 70%);
-    color: $color-accent-press;
-  }
-
-  &--selected {
-    background-color: $color-accent-press;
-    color: $color-white;
-
-    &:hover {
-      background-color: $color-accent-hover;
-      color: $color-white;
+    .base-select__trigger {
+      cursor: not-allowed;
     }
   }
 
-  &--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  // Открытое состояние
+  &--open {
+    .base-select__arrow {
+      transform: rotate(180deg);
+    }
 
+    .base-select__dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  // Триггер (видимая часть)
+  &__trigger {
+    width: 100%;
+    height: $height-input;
+    padding: $space-4 $space-5;
+    border: 1px solid $color-grey-4;
+    border-radius: $radius-md;
+    background: $color-white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    // Hover состояние
     &:hover {
-      background-color: inherit;
-      color: inherit;
+      border-color: $color-black-1;
+    }
+
+    // Focus состояние (когда открыт)
+    .base-select--open & {
+      border-color: $color-accent;
+      box-shadow: 0 0 0 2px rgba($color-accent, 0.1);
+    }
+  }
+
+  // Выбранное значение
+  &__value {
+    font-size: $text-body;
+    color: $color-black-1;
+    font-weight: $font-weight-regular;
+  }
+
+  // Placeholder текст
+  &__placeholder {
+    color: $color-grey-3;
+  }
+
+  // Стрелка
+  &__arrow {
+    color: $color-grey-4;
+    transition: transform 0.3s ease;
+    font-size: 12px;
+  }
+
+  // Выпадающий список
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: $color-white;
+    border: 1px solid $color-grey-2;
+    border-radius: $radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: $space-2;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.3s ease;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  // Опции в выпадающем списке
+  &__option {
+    padding: $space-4 $space-5;
+    font-size: $text-body;
+    color: $color-black-1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid $color-grey-1;
+
+    // Hover состояние
+    &:hover:not(.base-select__option--disabled) {
+      background: $color-grey-1;
+    }
+
+    // Выбранная опция
+    &--selected {
+      background: rgba($color-accent, 0.1);
+      color: $color-accent;
+      font-weight: $font-weight-medium;
+
+      &:hover {
+        background: rgba($color-accent, 0.2);
+      }
+    }
+
+    // Disabled опция
+    &--disabled {
+      color: $color-grey-3;
+      cursor: not-allowed;
+      background: $color-grey-1;
+
+      &:hover {
+        background: $color-grey-1;
+      }
+    }
+
+    // Последняя опция без бордера
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// Адаптивность для селекта
+@media (max-width: 768px) {
+  .base-select {
+    &__trigger {
+      height: 48px;
+      padding: $space-3 $space-4;
+    }
+
+    &__dropdown {
+      position: fixed;
+      left: $space-4;
+      right: $space-4;
+      top: 50%;
+      transform: translateY(-50%) scale(0.95);
+      max-height: 60vh;
+
+      .base-select--open & {
+        transform: translateY(-50%) scale(1);
+      }
     }
   }
 }

@@ -1,74 +1,10 @@
-body {
-  font-family: 'Gotham Pro', Arial, sans-serif;
-  background-color: #dbbfbf;
-  color: #000;
-  margin: 0;
-  padding: 0;
-}
-
+@import 'variables';
+@import 'base';
+@import 'app';
 // Компоненты
 @import 'components/base-button';
 @import 'components/base-input';
+@import 'components/base-select';
+@import 'components/base-table';
+@import 'components/base-pagination';
 @import 'components/base-calendar';
-// Добавляй сюда другие компоненты по мере необходимости
-
-// BaseButton стили
-.base-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  margin: 5px;
-}
-
-.base-button--primary {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.base-button--primary:hover {
-  background-color: #2563eb;
-}
-
-.base-button--secondary {
-  background-color: #6b7280;
-  color: white;
-}
-
-.base-button--secondary:hover {
-  background-color: #4b5563;
-}
-
-.base-button--accent {
-  background-color: #8b5cf6;
-  color: white;
-}
-
-.base-button--accent:hover {
-  background-color: #7c3aed;
-}
-
-// BaseInput стили
-.base-input {
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
-  &:disabled {
-    background-color: #f3f4f6;
-    color: #9ca3af;
-    cursor: not-allowed;
-  }
-}

@@ -1,52 +1,67 @@
 @import '../variables';
 
-.base-input-wrapper {
-  display: inline-block;
-  width: 100%;
-}
-
 .base-input {
+  // Базовые стили
   width: 100%;
-  padding: 12px 16px;
+  height: $height-input;
+  padding: $space-4 $space-5;
   border: 1px solid $color-grey-4;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 14px;
-  background-color: $color-white;
+  border-radius: $radius-md;
+  background: $color-white;
+  font-family: $font-primary;
+  font-size: $text-body;
   color: $color-black-1;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s ease;
 
-  // Placeholder стилизация
+  // Placeholder
   &::placeholder {
-    color: lighten($color-grey-4, 20%);
+    color: $color-grey-3;
+    font-weight: $font-weight-regular;
   }
 
   // Hover состояние
-  &:hover:not(.base-input--disabled) {
+  &:hover:not(:disabled) {
     border-color: $color-black-1;
   }
 
-  // Focus состояние
+  // Focus состояние (как в Figma)
   &:focus {
+    border-color: $color-accent;
+    box-shadow: 0 0 0 2px rgba($color-accent, 0.1);
     outline: none;
-    border-color: $color-accent-press;
-    box-shadow: 0 0 0 2px rgba($color-accent-press, 0.1);
-  }
-
-  // Error состояние
-  &--error {
-    border-color: #dc3545;
-
-    &:focus {
-      border-color: #dc3545;
-      box-shadow: 0 0 0 2px rgba(#dc3545, 0.1);
-    }
   }
 
   // Disabled состояние
-  &--disabled {
-    background-color: lighten($color-grey-4, 40%);
+  &:disabled {
+    background: $color-grey-1;
+    border-color: $color-grey-2;
+    color: $color-grey-3;
     cursor: not-allowed;
-    opacity: 0.6;
+
+    &::placeholder {
+      color: $color-grey-3;
+    }
   }
+
+  // Ошибка (можно добавить позже)
+  &.error {
+    border-color: $color-error;
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba($color-error, 0.1);
+    }
+  }
+}
+
+// Варианты размеров (если понадобятся)
+.base-input--sm {
+  height: 44px;
+  padding: $space-3 $space-4;
+  font-size: $text-body-sm;
+}
+
+.base-input--lg {
+  height: 60px;
+  padding: $space-5 $space-6;
+  font-size: $text-body-lg;
 }

@@ -4,43 +4,110 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 20px 0;
+  gap: $space-4;
+  padding: $space-5 0;
 
+  // Disabled состояние
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
   }
-}
 
-.base-pagination__pages {
-  display: flex;
-  gap: 4px;
-}
+  // Контейнер для номеров страниц
+  &__pages {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
 
-.base-pagination__page {
-  min-width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  cursor: pointer;
+  // Навигационные кнопки (Назад/Вперед)
+  &__nav {
+    min-width: 100px;
 
-  &--active {
-    background-color: $color-accent-press;
-    color: $color-white;
-    font-weight: 700;
-    cursor: default;
+    // Стили для кнопок наследуются от BaseButton
+  }
+
+  // Кнопка страницы
+  &__page {
+    width: 40px;
+    height: 40px;
+    min-width: auto !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-md !important;
+    border: 1px solid $color-grey-2 !important;
+    font-size: $text-body-sm;
+    font-weight: $font-weight-medium;
+
+    // Hover состояние
+    &:hover:not(.base-pagination__page--active) {
+      border-color: $color-accent !important;
+      background: transparent !important;
+      color: $color-accent !important;
+    }
+
+    // Активная страница
+    &--active {
+      background: $color-accent !important;
+      color: $color-white !important;
+      border-color: $color-accent !important;
+
+      &:hover {
+        background: $color-accent-hover !important;
+        border-color: $color-accent-hover !important;
+      }
+    }
+  }
+
+  // Многоточие
+  &__ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: $color-grey-3;
+    font-size: $text-body-sm;
+    user-select: none;
   }
 }
 
-.base-pagination__nav {
-  padding: 8px 16px;
+// Адаптивность для пагинации
+@media (max-width: 768px) {
+  .base-pagination {
+    flex-direction: column;
+    gap: $space-4;
+
+    &__pages {
+      order: -1; // Страницы показываются первыми на мобильных
+    }
+
+    &__nav {
+      width: 100%;
+      max-width: 200px;
+    }
+
+    &__page,
+    &__ellipsis {
+      width: 36px;
+      height: 36px;
+    }
+  }
 }
 
-.base-pagination__ellipsis {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  height: 40px;
-  color: $color-grey-4;
+@media (max-width: 480px) {
+  .base-pagination {
+    &__pages {
+      gap: $space-1;
+    }
+
+    &__page,
+    &__ellipsis {
+      width: 32px;
+      height: 32px;
+      font-size: $text-caption;
+    }
+  }
 }

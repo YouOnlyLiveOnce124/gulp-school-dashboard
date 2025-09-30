@@ -1,12 +1,36 @@
-// Цвета из Figma
-$color-black-1: #0E0E10;
-$color-black-2: #1B1B1F;
-$color-white: #F1F4FD;
-$color-grey-4: #55555C;
-$color-accent-hover: #24C14E;
+// Цветовая палитра
+$color-black-1: #0e0e10;
+$color-black-2: #1b1b1f;
+$color-white: #f1f4fd;
+$color-grey-1: #f0f0f7;
+$color-grey-2: #e5e5eb;
+$color-grey-3: #a0a0a7;
+$color-grey-4: #55555c;
+$color-accent: #1a7b3c;
+$color-accent-hover: #24c14e;
 $color-accent-press: #168240;
 
-// Отступы из Figma
-$padding-16: 16px;
-$gap-6: 6px;
+// Типографика
+$font-primary: 'Gotham Pro', sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
 
+// Размеры текста
+$text-h2: 60px;
+$text-body: 16px;
+$text-body-sm: 14px;
+
+// Отступы
+$space-3: 8px;
+$space-4: 12px;
+$space-5: 16px;
+$space-6: 20px;
+
+// Радиусы
+$radius-md: 8px;
+$radius-lg: 10px;
+
+// Высоты
+$height-button: 53px;
+$height-input: 53px;

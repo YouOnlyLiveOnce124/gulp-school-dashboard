@@ -1,0 +1,315 @@
+@import 'variables';
+@import 'base';
+
+// Компоненты
+@import 'components/base-button';
+@import 'components/base-input';
+@import 'components/base-select';
+@import 'components/base-table';
+@import 'components/base-pagination';
+@import 'components/base-calendar';
+
+// Стили для главного приложения
+#app {
+  min-height: 100vh;
+  background: $color-white;
+  padding: 0;
+
+  h1 {
+    background: $color-black-1;
+    color: $color-white;
+    font-size: $text-h2;
+    font-weight: $font-weight-bold;
+    padding: $space-5 0;
+    margin: 0;
+    text-align: center;
+    height: 216px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 110%;
+  }
+}
+
+// Верхняя строка фильтров
+.top-filters {
+  display: flex;
+  gap: $space-5;
+  padding: $space-6;
+  background: $color-white;
+  border-bottom: 1px solid $color-grey-2;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .calendar-placeholder {
+    padding: $space-4 $space-5;
+    border: 1px solid $color-grey-4;
+    border-radius: $radius-md;
+    background: $color-white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+
+    &:hover {
+      border-color: $color-black-1;
+    }
+  }
+
+  .filter-group {
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
+  }
+}
+
+// Оверлей календаря
+.calendar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .calendar-container {
+    background: $color-white;
+    border-radius: $radius-lg;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Действия с таблицей
+.table-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-5 $space-6;
+  background: $color-white;
+  border-bottom: 1px solid $color-grey-2;
+
+  .download-btn {
+    min-width: 200px;
+  }
+
+  .records-info {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+
+    .records-text {
+      color: $color-grey-4;
+      font-size: $text-body-sm;
+    }
+
+    .page-size-select {
+      width: 100px;
+    }
+  }
+}
+
+// Секция фильтров
+.filters-section {
+  padding: $space-5 $space-6;
+  background: $color-white;
+  border-bottom: 1px solid $color-grey-2;
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+
+    .filter-label {
+      color: $color-black-1;
+      font-weight: $font-weight-medium;
+      min-width: 80px;
+    }
+  }
+}
+
+// Секция поиска
+.search-section {
+  padding: $space-5 $space-6;
+  background: $color-white;
+  border-bottom: 1px solid $color-grey-2;
+
+  .search-with-clear {
+    display: flex;
+    gap: $space-4;
+    align-items: center;
+    max-width: 400px;
+
+    .base-input {
+      flex: 1;
+    }
+
+    .clear-search-btn {
+      width: 40px;
+      height: 40px;
+      min-width: auto;
+      padding: 0;
+      font-size: 18px;
+    }
+  }
+
+  .search-results-info {
+    margin-top: $space-4;
+    color: $color-grey-4;
+    font-size: $text-body-sm;
+
+    strong {
+      color: $color-accent;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+// Сообщения статуса
+.status-message {
+  padding: $space-8;
+  text-align: center;
+
+  &.loading {
+    .loading-spinner {
+      color: $color-grey-4;
+      font-size: $text-body;
+    }
+  }
+
+  &.error {
+    color: $color-error;
+
+    .error-icon {
+      font-size: 48px;
+      margin-bottom: $space-5;
+    }
+
+    h3 {
+      font-size: $text-h5;
+      margin-bottom: $space-4;
+      color: $color-error;
+    }
+
+    .error-detail {
+      color: $color-grey-4;
+      margin-bottom: $space-6;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    gap: $space-4;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+// Адаптивность
+@media (max-width: 1024px) {
+  #app {
+    h1 {
+      font-size: 48px;
+      height: 180px;
+      padding: $space-6;
+    }
+  }
+
+  .top-filters {
+    padding: $space-5;
+
+    .filter-group {
+      min-width: 140px;
+    }
+  }
+
+  .table-actions {
+    padding: $space-4 $space-5;
+    flex-direction: column;
+    gap: $space-4;
+    align-items: stretch;
+
+    .records-info {
+      justify-content: flex-end;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #app {
+    h1 {
+      font-size: 36px;
+      height: 150px;
+      padding: $space-5;
+    }
+  }
+
+  .top-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-4;
+
+    .filter-group {
+      max-width: 100%;
+    }
+
+    .calendar-placeholder {
+      min-width: auto;
+    }
+  }
+
+  .filters-section {
+    padding: $space-4 $space-5;
+
+    .filter-group {
+      flex-direction: column;
+      align-items: stretch;
+      gap: $space-3;
+
+      .filter-label {
+        min-width: auto;
+      }
+    }
+  }
+
+  .search-section {
+    padding: $space-4 $space-5;
+
+    .search-with-clear {
+      max-width: 100%;
+    }
+  }
+
+  .status-message {
+    padding: $space-6 $space-4;
+
+    .button-group {
+      flex-direction: column;
+      align-items: stretch;
+
+      .base-button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #app {
+    h1 {
+      font-size: 28px;
+      height: 120px;
+      padding: $space-4;
+    }
+  }
+
+  .table-actions {
+    .records-info {
+      flex-direction: column;
+      gap: $space-3;
+      align-items: flex-start;
+    }
+  }
+}

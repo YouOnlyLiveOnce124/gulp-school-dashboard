@@ -1,90 +1,277 @@
 @import '../variables';
 
 .base-table {
-  border: 1px solid $color-grey-4;
-  border-radius: 8px;
+  width: 100%;
+  background: $color-white;
+  border-radius: $radius-lg;
   overflow: hidden;
-}
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
-.base-table__header {
-  background-color: $color-black-2;
-  color: $color-white;
-  font-weight: 700;
-}
+  // Заголовок таблицы
+  &__header {
+    background: $color-grey-1;
 
-.base-table__header-row {
-  display: grid;
-  grid-template-columns: 40px repeat(auto-fit, minmax(150px, 1fr));
-}
+    &-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 1fr 1fr 1fr; // Чекбокс + 4 колонки
+      align-items: center;
+      min-height: $height-table-header;
+    }
+  }
 
-.base-table__header-cell {
-  padding: 16px;
-  text-align: left;
+  // Ячейки заголовка
+  &__header-cell {
+    padding: $space-5;
+    font-weight: $font-weight-medium;
+    color: $color-black-1;
+    text-align: left;
+    border-bottom: 1px solid $color-grey-2;
+    user-select: none;
 
-  &--sortable {
-    cursor: pointer;
+    // Сортируемые колонки
+    &--sortable {
+      cursor: pointer;
+      transition: all 0.3s ease;
 
+      &:hover {
+        background: darken($color-grey-1, 5%);
+        color: $color-accent;
+      }
+    }
+  }
+
+  // Чекбокс ячейка
+  &__checkbox-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-4;
+
+    input[type='checkbox'] {
+      width: 20px;
+      height: 20px;
+      border: 2px solid $color-grey-4;
+      border-radius: $radius-sm;
+      cursor: pointer;
+      appearance: none;
+      position: relative;
+      transition: all 0.3s ease;
+
+      &:checked {
+        background: $color-accent;
+        border-color: $color-accent;
+
+        &::after {
+          content: '✓';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: $color-white;
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+
+      &:hover {
+        border-color: $color-accent;
+      }
+
+      &:indeterminate {
+        background: $color-accent;
+        border-color: $color-accent;
+
+        &::after {
+          content: '—';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: $color-white;
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  // Тело таблицы
+  &__body {
+    min-height: 200px;
+  }
+
+  // Строки данных
+  &__row {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr; // Чекбокс + 4 колонки
+    align-items: center;
+    min-height: $height-table-row;
+    border-bottom: 1px solid $color-grey-2;
+    transition: all 0.3s ease;
+
+    // Чередование фона строк
+    &:nth-child(even) {
+      background: rgba($color-grey-1, 0.3);
+    }
+
+    // Hover эффект
     &:hover {
-      background-color: lighten($color-black-2, 10%);
+      background: rgba($color-grey-1, 0.7);
+    }
+
+    // Выбранная строка
+    &.selected {
+      background: rgba($color-accent, 0.1);
+
+      &:hover {
+        background: rgba($color-accent, 0.15);
+      }
+    }
+  }
+
+  // Ячейки данных
+  &__cell {
+    padding: $space-4 $space-5;
+    color: $color-black-1;
+    font-size: $text-body-sm;
+    line-height: 1.4;
+
+    // Обрезка длинного текста
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Состояние загрузки
+  &__loading {
+    padding: $space-6;
+  }
+
+  // Скелетон строки
+  &__skeleton-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr;
+    align-items: center;
+    min-height: $height-table-row;
+    margin-bottom: $space-3;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Скелетон ячейки
+  &__skeleton-cell {
+    padding: $space-4 $space-5;
+
+    .skeleton {
+      height: 16px;
+      background: linear-gradient(90deg, $color-grey-1 25%, $color-grey-2 50%, $color-grey-1 75%);
+      background-size: 200px 100%;
+      animation: skeleton-loading 1.5s infinite linear;
+      border-radius: $radius-sm;
+    }
+  }
+
+  // Состояние ошибки
+  &__error {
+    padding: $space-8;
+    text-align: center;
+    color: $color-error;
+
+    p {
+      margin-bottom: $space-5;
+      font-size: $text-body;
+    }
+  }
+
+  // Пустое состояние
+  &__empty {
+    padding: $space-8;
+    text-align: center;
+    color: $color-grey-3;
+
+    p {
+      font-size: $text-body;
     }
   }
 }
 
-.base-table__body {
-  background-color: $color-white;
-}
-
-.base-table__row {
-  display: grid;
-  grid-template-columns: 40px repeat(auto-fit, minmax(150px, 1fr));
-  border-bottom: 1px solid lighten($color-grey-4, 30%);
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &:hover {
-    background-color: lighten($color-grey-4, 40%);
-  }
-}
-
-.base-table__cell {
-  padding: 12px 16px;
-}
-
-/* Стили для чекбоксов */
-.base-table__checkbox-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-}
-
-.base-table__header-cell.base-table__checkbox-cell {
-  background-color: $color-black-2; // Соответствует заголовку
-}
-
-/* Стили для состояний */
-.base-table__loading,
-.base-table__error,
-.base-table__empty {
-  padding: 40px;
-  text-align: center;
-}
-
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-  height: 16px;
-  border-radius: 4px;
-}
-
-@keyframes loading {
+// Анимация скелетона
+@keyframes skeleton-loading {
   0% {
-    background-position: 200% 0;
+    background-position: -200px 0;
   }
   100% {
-    background-position: -200% 0;
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+// Адаптивность для таблицы
+@media (max-width: 1024px) {
+  .base-table {
+    &__header-row,
+    &__row {
+      grid-template-columns: 50px 1fr 1fr 1fr; // Чекбокс + 3 колонки
+    }
+
+    // Скрываем последнюю колонку на планшете
+    &__header-cell:nth-child(5),
+    &__cell:nth-child(5) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .base-table {
+    border-radius: $radius-md;
+
+    &__header-row,
+    &__row {
+      grid-template-columns: 40px 1fr 1fr; // Чекбокс + 2 колонки
+    }
+
+    // Скрываем дополнительные колонки на мобильных
+    &__header-cell:nth-child(4),
+    &__header-cell:nth-child(5),
+    &__cell:nth-child(4),
+    &__cell:nth-child(5) {
+      display: none;
+    }
+
+    &__header-cell,
+    &__cell {
+      padding: $space-3 $space-4;
+      font-size: $text-body-sm;
+    }
+
+    &__checkbox-cell {
+      padding: $space-3;
+
+      input[type='checkbox'] {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .base-table {
+    &__header-row,
+    &__row {
+      grid-template-columns: 35px 1fr; // Чекбокс + 1 колонка
+    }
+
+    // Оставляем только первую колонку на маленьких экранах
+    &__header-cell:nth-child(3),
+    &__header-cell:nth-child(4),
+    &__header-cell:nth-child(5),
+    &__cell:nth-child(3),
+    &__cell:nth-child(4),
+    &__cell:nth-child(5) {
+      display: none;
+    }
   }
 }
