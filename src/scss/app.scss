@@ -158,11 +158,12 @@
 
   // ЖЕСТКО ПЕРЕОПРЕДЕЛЯЕМ ВСЕ ФОНЫ
   .base-table {
-    background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+    background: $color-pure-white !important;
     border-radius: 0 !important;
     &__header {
-      background: $color-grey-1 !important;
-      border-radius: 0 !important;
+      .base-table__checkbox-cell:first-child input[type='checkbox'] {
+        background: $color-pure-white !important;
+      }
       &-cell {
         background: $color-grey-1 !important;
 
@@ -173,14 +174,14 @@
     }
 
     &__body {
-      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+      background: $color-pure-white !important;
     }
 
     &__row {
-      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+      background: $color-pure-white !important;
 
       &:nth-child(even) {
-        background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+        background: $color-pure-white !important;
       }
 
       &:hover {
@@ -197,7 +198,7 @@
     }
 
     &__cell {
-      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+      background: $color-pure-white !important;
     }
 
     &__loading,
@@ -205,7 +206,7 @@
     &__skeleton-cell,
     &__error,
     &__empty {
-      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+      background: $color-pure-white !important;
     }
   }
 }
