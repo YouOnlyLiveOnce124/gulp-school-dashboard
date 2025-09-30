@@ -12,7 +12,7 @@
 /* Верхняя часть с логотипами - 216px */
 .tech-header {
   height: 216px;
-  padding: 16px;
+  padding: 16px 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -25,50 +25,44 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 32px; /* ← УВЕЛИЧИЛ С 16px ДО 32px */
 }
 
-/* Левый логотип - 120x120 */
+/* Остальные стили остаются без изменений */
 .header-left .logo {
-  width: 84x;
+  width: 84px;
   height: 84px;
-  background: $color-grey-4;
+  background: $color-white;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $color-white;
-  font-weight: bold;
-  font-size: 16px;
+  color: $color-black-1;
+  font-weight: $font-weight-bold;
+  font-size: 14px;
 }
 
-/* Правая часть с контактами - 124x98 */
 .header-right {
-  width: 124px;
-  height: 98px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: flex-end;
 }
 
-/* Темный логотип справа - 120x32 */
 .logo-dark {
   width: 120px;
   height: 32px;
-  background: $color-grey-4;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $color-white;
-  font-weight: bold;
-  font-size: 12px;
-  opacity: 0.5;
+  color: $color-grey-4;
+  font-weight: $font-weight-bold;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: $radius-sm;
 }
 
-/* Контейнер контактов - 124x58 */
 .contacts-block {
-  width: 124px;
-  height: 58px;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -78,19 +72,38 @@
   font-weight: $font-weight-bold;
   font-size: 14px;
   line-height: 130%;
+
+  div {
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $color-white;
+      cursor: default;
+    }
+
+    &:nth-child(1) {
+      font-size: 14px;
+    }
+    &:nth-child(2) {
+      font-size: 12px;
+    }
+    &:nth-child(3) {
+      font-size: 12px;
+    }
+  }
 }
 
 /* Нижняя часть с "Тестовое задание" - 156px */
 .tech-head-container {
   height: 156px;
-  padding: 0 16px;
+  padding: 0 32px; /* ← УВЕЛИЧИЛ С 16px ДО 32px */
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
 .tech-head-2xl {
-  color: $color-grey-4;
+  color: $color-white;
   font-family: $font-primary;
   font-weight: $font-weight-bold;
   font-size: 60px;
@@ -113,6 +126,7 @@
 
   .tech-header > .header-container {
     height: 100px;
+    padding: 0 24px; /* ← 24px для планшетов */
   }
 
   .header-left .logo {
@@ -122,6 +136,7 @@
 
   .tech-head-container {
     height: 120px;
+    padding: 0 24px; /* ← 24px для планшетов */
   }
 
   .tech-head-2xl {
@@ -146,6 +161,7 @@
     flex-direction: column;
     gap: 16px;
     align-items: center;
+    padding: 0 16px; /* ← 16px для мобильных */
   }
 
   .header-right {
@@ -160,6 +176,7 @@
   .tech-head-container {
     height: 100px;
     justify-content: center;
+    padding: 0 16px; /* ← 16px для мобильных */
   }
 
   .tech-head-2xl {

@@ -277,24 +277,22 @@ const App = {
   <div id="app">
   <!-- ВЕРХНЯЯ ЧЕРНАЯ ШАПКА -->
 <header class="tech-header-group-1">
-  <!-- Верхняя часть с логотипами -->
   <div class="tech-header">
     <div class="header-container">
       <div class="header-left">
-        <div class="logo">ЛОГО</div>
+        <img src="images/logo.png" alt="Логотип" class="logo">
       </div>
-      <div class="header-right">
-        <div class="logo-dark">SL</div>
+       <div class="header-right">
+        <div class="logo-dark">School</div> <!-- ← CSS надпись -->
         <div class="contacts-block">
-          <div>+7 962 253 20 37</div>
-          <div>sales@skillline.ru</div>
-          <div>skillline.ru</div>
+          <div>+7 (495) 123-45-67</div> <!-- ← Заглушка номер -->
+          <div>info@schools-edu.ru</div> <!-- ← Заглушка email -->
+          <div>schools-education.com</div> <!-- ← Заглушка сайт -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Нижняя часть с текстом -->
   <div class="tech-head-container">
     <div class="tech-head-2xl">Тестовое задание</div>
   </div>

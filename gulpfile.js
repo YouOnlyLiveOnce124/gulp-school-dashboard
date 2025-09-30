@@ -12,8 +12,9 @@ const del = require('del')
 const paths = {
   src: {
     html: 'src/*.html',
-    scss: 'src/scss/main.scss', // ← ТОЛЬКО главный файл, не все SCSS
+    scss: 'src/scss/main.scss',
     js: 'src/js/app.js',
+    images: 'src/images/**/*', // ← ДОБАВЛЕНО ДЛЯ ИЗОБРАЖЕНИЙ
     assets: 'src/assets/**/*',
   },
   dist: 'dist',
@@ -54,19 +55,33 @@ function scripts() {
 
   return gulp
     .src([
-      // Сначала API и утилиты
       'src/services/*.js',
       'src/utils/*.js',
       'src/composables/*.js',
-      // Потом UI компоненты
       'src/js/components/UI/*.js',
-      // В конце главный файл
       'src/js/app.js',
     ])
     .pipe(concat('app.js'))
     .pipe(gulp.dest('dist/js'))
     .on('end', () => {
       console.log('✅ JS собран из всех папок!')
+    })
+}
+
+// ИЗОБРАЖЕНИЯ ← НОВАЯ ЗАДАЧА
+function images() {
+  const fs = require('fs')
+  if (!fs.existsSync('dist/images')) {
+    fs.mkdirSync('dist/images', { recursive: true })
+  }
+
+  console.log('🖼️ Копируем изображения...')
+
+  return gulp
+    .src(paths.src.images)
+    .pipe(gulp.dest('dist/images'))
+    .on('end', () => {
+      console.log('✅ Изображения скопированы!')
     })
 }
 
@@ -81,16 +96,18 @@ function serve() {
 // Вотчер
 function watch() {
   gulp.watch(paths.src.html, html)
-  gulp.watch(paths.src.scss, styles)
+  gulp.watch('src/scss/**/*.scss', styles) // ← ИЗМЕНИЛ для отслеживания всех SCSS
   gulp.watch('src/js/**/*.js', scripts)
+  gulp.watch(paths.src.images, images) // ← ДОБАВИЛ отслеживание изображений
 }
 
 // Таски
-const build = gulp.series(clean, gulp.parallel(html, styles, scripts))
+const build = gulp.series(clean, gulp.parallel(html, styles, scripts, images)) // ← ДОБАВИЛ images
 const dev = gulp.series(build, gulp.parallel(serve, watch))
 
 exports.clean = clean
 exports.build = build
 exports.dev = dev
-exports.scripts = scripts // ← ДОБАВЬ ЭТУ СТРОКУ
+exports.scripts = scripts
+exports.images = images // ← ДОБАВИЛ экспорт
 exports.default = dev
