@@ -50,6 +50,7 @@ const BaseCalendar = {
           day: dayNumber,
           date: this.formatDateToLocal(this.currentYear, this.currentMonthIndex - 1, dayNumber),
           isCurrentMonth: false,
+          isDisabled: this.isDateDisabled(this.currentYear, this.currentMonthIndex - 1, dayNumber),
         })
       }
 
@@ -59,6 +60,7 @@ const BaseCalendar = {
           day: i,
           date: this.formatDateToLocal(this.currentYear, this.currentMonthIndex, i),
           isCurrentMonth: true,
+          isDisabled: this.isDateDisabled(this.currentYear, this.currentMonthIndex, i),
         })
       }
 
@@ -70,6 +72,7 @@ const BaseCalendar = {
           day: i,
           date: this.formatDateToLocal(this.currentYear, this.currentMonthIndex + 1, i),
           isCurrentMonth: false,
+          isDisabled: this.isDateDisabled(this.currentYear, this.currentMonthIndex + 1, i),
         })
       }
 
@@ -84,6 +87,27 @@ const BaseCalendar = {
       const mm = String(date.getMonth() + 1).padStart(2, '0')
       const dd = String(date.getDate()).padStart(2, '0')
       return `${yyyy}-${mm}-${dd}`
+    },
+
+    // НОВЫЙ МЕТОД: проверка disabled даты
+    isDateDisabled(year, month, day) {
+      const date = new Date(year, month, day)
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+
+      // Отключаем только даты ПОСЛЕ сегодня (завтра и дальше)
+      // Сегодня и все прошлые даты - доступны
+      return date > today
+    },
+
+    canSelectDate(date) {
+      const dateObj = new Date(date)
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+
+      // Разрешаем ВСЕ даты ДО сегодня включительно
+      // dateObj <= today - сегодня и все прошлые даты
+      return dateObj <= today
     },
 
     prevMonth() {
@@ -105,23 +129,35 @@ const BaseCalendar = {
     },
 
     isSelected(date) {
+      if (!this.selectedRange.start || !this.selectedRange.end) return false
       return date === this.selectedRange.start || date === this.selectedRange.end
     },
 
     isInRange(date) {
       if (!this.selectedRange.start || !this.selectedRange.end) return false
-      return date > this.selectedRange.start && date < this.selectedRange.end
+
+      // Преобразуем в timestamp для правильного сравнения
+      const dateTs = new Date(date).getTime()
+      const startTs = new Date(this.selectedRange.start).getTime()
+      const endTs = new Date(this.selectedRange.end).getTime()
+
+      return dateTs > startTs && dateTs < endTs
     },
 
     isFirstInRange(date) {
+      if (!this.selectedRange.start) return false
       return date === this.selectedRange.start
     },
 
     isLastInRange(date) {
+      if (!this.selectedRange.end) return false
       return date === this.selectedRange.end
     },
 
     selectDate(date) {
+      // НОВАЯ ПРОВЕРКА: нельзя выбрать disabled дату
+      if (!this.canSelectDate(date)) return
+
       if (!this.selectedRange.start || (this.selectedRange.start && this.selectedRange.end)) {
         this.selectedRange = { start: date, end: null }
       } else {
@@ -173,6 +209,7 @@ const BaseCalendar = {
                 'selected': isFirstInRange(day.date) || isLastInRange(day.date),
                 'in-range': isInRange(day.date),
                 'other-month': !day.isCurrentMonth,
+                'disabled': day.isDisabled
               },
             ]"
             @click="selectDate(day.date)"

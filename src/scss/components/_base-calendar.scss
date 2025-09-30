@@ -120,20 +120,31 @@
         }
 
         &.selected {
-          background: #33d35e;
-          color: #0e0e10;
-          font-weight: 500;
+          background: #33d35e !important;
+          color: #0e0e10 !important;
+          font-weight: 500 !important;
         }
 
         &.in-range {
-          background: #c3fcd2;
-          color: #0e0e10;
+          background: #c3fcd2 !important;
+          color: #0e0e10 !important;
         }
       }
+      &.disabled {
+        color: #d3d3de !important;
+        cursor: not-allowed !important;
 
+        &:hover {
+          background: transparent !important;
+        }
+      }
       &.other-month {
         color: #93939b;
-        cursor: not-allowed;
+
+        // Ховер для other-month, но не перекрывает in-range/selected
+        &:hover:not(.in-range):not(.selected) {
+          background: #c3fcd2;
+        }
       }
     }
   }
@@ -178,5 +189,19 @@
         color: $color-grey-3;
       }
     }
+  }
+}
+.calendar-day {
+  &.in-range,
+  &.other-month.in-range {
+    background: #c3fcd2 !important;
+    color: #0e0e10 !important;
+  }
+
+  &.selected,
+  &.other-month.selected {
+    background: #33d35e !important;
+    color: #0e0e10 !important;
+    font-weight: 500 !important;
   }
 }
