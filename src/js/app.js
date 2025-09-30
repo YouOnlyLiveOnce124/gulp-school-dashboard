@@ -425,26 +425,29 @@ const App = {
         </div>
       </div>
 
-      <div v-else>
-        <!-- ТАБЛИЦА С ДАННЫМИ -->
-        <BaseTable
-          :columns="tableColumns"
-          :data="displayedSchools"
-          :loading="loading"
-          :selected-items="selectedSchools"
-          :is-indeterminate="isIndeterminate"
-          @select-all="handleSelectAll"
-          @select-item="handleSelectSchool"
-        />
+     <div v-else>
+  <!-- ОБЕРТКА ДЛЯ ТАБЛИЦЫ С ДАННЫМИ -->
+  <div class="table-data-container">
+    <!-- ТАБЛИЦА С ДАННЫМИ -->
+    <BaseTable
+      :columns="tableColumns"
+      :data="displayedSchools"
+      :loading="loading"
+      :selected-items="selectedSchools"
+      :is-indeterminate="isIndeterminate"
+      @select-all="handleSelectAll"
+      @select-item="handleSelectSchool"
+    />
+  </div>
 
-        <!-- ПАГИНАЦИЯ ВНИЗУ -->
-        <BasePagination
-          v-if="filteredTotalPages > 1"
-          :current-page="currentDisplayPage"
-          :total-pages="filteredTotalPages"
-          @page-change="handlePageChange"
-        />
-      </div>
+  <!-- ПАГИНАЦИЯ ВНИЗУ -->
+  <BasePagination
+    v-if="filteredTotalPages > 1"
+    :current-page="currentDisplayPage"
+    :total-pages="filteredTotalPages"
+    @page-change="handlePageChange"
+  />
+</div>
     </section>
   </div>
 </main>

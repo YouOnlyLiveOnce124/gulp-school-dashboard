@@ -1,0 +1,28 @@
+@import '../variables';
+
+.table-sort {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 8px;
+  gap: 2px;
+
+  &__arrow {
+    width: 4px;
+    height: 8px;
+    border: 1.5px solid;
+    transition: all 0.3s ease;
+
+    &--up {
+      border-color: $color-grey-3;
+    }
+
+    &--down {
+      border-color: $color-grey-3;
+    }
+
+    &.active {
+      border-color: $color-black-1;
+    }
+  }
+}

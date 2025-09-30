@@ -148,11 +148,66 @@
   }
 }
 
-.table-container {
-  background: $color-white;
-  border-radius: 10px;
-  overflow: hidden;
+// Обертка для таблицы с данными
+.table-data-container {
+  background: $color-pure-white !important;
+  border-radius: $radius-lg;
+
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: $space-6;
+
+  // ЖЕСТКО ПЕРЕОПРЕДЕЛЯЕМ ВСЕ ФОНЫ
+  .base-table {
+    background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+    border-radius: 0 !important;
+    &__header {
+      background: $color-grey-1 !important;
+      border-radius: 0 !important;
+      &-cell {
+        background: $color-grey-1 !important;
+
+        &--sortable:hover {
+          background: darken($color-grey-1, 5%) !important;
+        }
+      }
+    }
+
+    &__body {
+      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+    }
+
+    &__row {
+      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+
+      &:nth-child(even) {
+        background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+      }
+
+      &:hover {
+        background: rgba($color-grey-1, 0.7) !important;
+      }
+
+      &.selected {
+        background: rgba($color-accent, 0.1) !important;
+
+        &:hover {
+          background: rgba($color-accent, 0.15) !important;
+        }
+      }
+    }
+
+    &__cell {
+      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+    }
+
+    &__loading,
+    &__skeleton-row,
+    &__skeleton-cell,
+    &__error,
+    &__empty {
+      background: $color-pure-white !important; // ← МЕНЯЕМ НА PURE_WHITE
+    }
+  }
 }
 // Секция фильтров
 .filters-section {

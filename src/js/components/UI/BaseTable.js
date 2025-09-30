@@ -47,19 +47,26 @@ const BaseTable = {
           </div>
 
           <!-- Заголовки колонок -->
-          <div
-            v-for="column in columns"
-            :key="column.key"
-            :class="[
-              'base-table__header-cell',
-              { 'base-table__header-cell--sortable': column.sortable },
-            ]"
-            @click="column.sortable && $emit('sort', column.key)"
-            role="columnheader"
-            :aria-sort="column.sortable ? 'none' : undefined"
-          >
-            <span>{{ column.label }}</span>
-          </div>
+        <div
+  v-for="column in columns"
+  :key="column.key"
+  :class="[
+    'base-table__header-cell',
+    {
+      'base-table__header-cell--sortable': column.sortable,
+      'base-table__header-cell--hoverable': true // ← ДОБАВЛЯЕМ ХОВЕР ДЛЯ ВСЕХ
+    }
+  ]"
+  @click="column.sortable && $emit('sort', column.key)"
+  role="columnheader"
+>
+  <div class="header-cell-content">
+    <span>{{ column.label }}</span>
+    <div v-if="column.sortable" class="table-sort">
+      <!-- иконки сортировки -->
+    </div>
+  </div>
+</div>
         </div>
       </div>
 
