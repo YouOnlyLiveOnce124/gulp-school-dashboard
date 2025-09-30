@@ -86,7 +86,6 @@ const BaseCalendar = {
       return `${yyyy}-${mm}-${dd}`
     },
 
-    // Переключение месяцев
     prevMonth() {
       if (this.currentMonthIndex === 0) {
         this.currentMonthIndex = 11
@@ -111,15 +110,21 @@ const BaseCalendar = {
 
     isInRange(date) {
       if (!this.selectedRange.start || !this.selectedRange.end) return false
-      return date >= this.selectedRange.start && date <= this.selectedRange.end
+      return date > this.selectedRange.start && date < this.selectedRange.end
+    },
+
+    isFirstInRange(date) {
+      return date === this.selectedRange.start
+    },
+
+    isLastInRange(date) {
+      return date === this.selectedRange.end
     },
 
     selectDate(date) {
       if (!this.selectedRange.start || (this.selectedRange.start && this.selectedRange.end)) {
-        // Выбор начала диапазона
         this.selectedRange = { start: date, end: null }
       } else {
-        // Выбор конца диапазона
         if (date >= this.selectedRange.start) {
           this.selectedRange.end = date
         } else {
@@ -141,11 +146,14 @@ const BaseCalendar = {
     <div class="calendar">
       <div class="calendar-header">
         <h3>Выбрать период</h3>
-        <div class="calendar-nav">
-          <button @click="prevMonth" class="nav-button">‹</button>
-          <div class="calendar-month">{{ currentMonthName }}</div>
-          <button @click="nextMonth" class="nav-button">›</button>
-        </div>
+      </div>
+
+      <div class="calendar-divider"></div>
+
+      <div class="calendar-nav">
+        <button @click="prevMonth" class="nav-button" aria-label="Предыдущий месяц"></button>
+        <div class="calendar-month">{{ currentMonthName }}</div>
+        <button @click="nextMonth" class="nav-button" aria-label="Следующий месяц"></button>
       </div>
 
       <div class="calendar-grid">
@@ -162,7 +170,7 @@ const BaseCalendar = {
             :class="[
               'calendar-day',
               {
-                selected: isSelected(day.date),
+                'selected': isFirstInRange(day.date) || isLastInRange(day.date),
                 'in-range': isInRange(day.date),
                 'other-month': !day.isCurrentMonth,
               },
@@ -176,7 +184,13 @@ const BaseCalendar = {
 
       <div class="calendar-actions">
         <button class="btn-cancel" @click="handleCancel">Отмена</button>
-        <button class="btn-save" @click="handleSave">Сохранить</button>
+        <button
+          class="btn-save"
+          @click="handleSave"
+          :disabled="!selectedRange.start || !selectedRange.end"
+        >
+          Сохранить
+        </button>
       </div>
     </div>
   `,

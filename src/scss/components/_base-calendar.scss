@@ -1,180 +1,182 @@
 @import '../variables';
 
 .calendar {
-  width: 328px;
+  width: 364px;
+  height: 482px;
   background: $color-white;
-  border-radius: $radius-lg;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid $color-grey-2;
-  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0px 5px 40px 0px #0000001a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-  // Заголовок календаря
   &-header {
-    padding: $space-6;
-    border-bottom: 1px solid $color-grey-2;
-
     h3 {
-      font-size: $text-body;
-      font-weight: $font-weight-bold;
-      color: $color-black-1;
-      margin-bottom: $space-5;
+      font-family: $font-primary;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 140%;
+      color: #111827;
       text-align: center;
+      margin: 0;
     }
   }
 
-  // Навигация по месяцам
+  &-divider {
+    height: 1px;
+    background: #d3d3de;
+  }
+
   &-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 8px;
 
     .nav-button {
       width: 32px;
       height: 32px;
-      border: 1px solid $color-grey-4;
-      border-radius: $radius-md;
+      border: none;
       background: transparent;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
+      position: relative;
 
-      &:hover {
-        border-color: $color-black-1;
-        background: $color-grey-1;
+      &::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border: 2px solid #0e0e10;
+        border-right: none;
+        border-bottom: none;
+        position: absolute;
       }
 
-      &:active {
-        background: $color-grey-2;
+      &:first-child::before {
+        transform: rotate(-45deg);
+      }
+
+      &:last-child::before {
+        transform: rotate(135deg);
       }
     }
 
     .calendar-month {
-      font-weight: $font-weight-medium;
-      color: $color-black-1;
+      font-family: $font-primary;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      color: #111827;
     }
   }
 
-  // Сетка календаря
   &-grid {
-    padding: $space-5;
+    flex: 1;
   }
 
-  // Дни недели
   &-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: $space-2;
-    margin-bottom: $space-4;
+    display: flex;
+    margin-bottom: 8px;
 
     .weekday {
-      height: 32px;
+      width: 44px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: $text-body-sm;
-      color: $color-grey-4;
-      font-weight: $font-weight-medium;
+      font-family: $font-primary;
+      font-weight: 400;
+      font-size: 14px;
+      color: #93939b;
     }
   }
 
-  // Дни месяца
+  // ПРОСТОЙ FLEX ВМЕСТО GRID
   &-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: $space-2;
+    display: flex;
+    flex-wrap: wrap;
 
     .calendar-day {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: $radius-md;
-      font-size: $text-body-sm;
+      font-family: $font-primary;
+      font-weight: 400;
+      font-size: 14px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
+      border: none;
+      background: transparent;
 
-      // Дни текущего месяца
       &:not(.other-month) {
-        color: $color-black-1;
-        background: transparent;
+        color: #0e0e10;
 
         &:hover {
-          background: $color-grey-1;
-          border-color: $color-grey-3;
+          background: #c3fcd2;
         }
 
         &.selected {
-          background: $color-accent;
-          color: $color-white;
-          border-color: $color-accent;
-
-          &:hover {
-            background: $color-accent-hover;
-          }
+          background: #33d35e;
+          color: #0e0e10;
+          font-weight: 500;
         }
 
         &.in-range {
-          background: rgba($color-accent, 0.1);
-          color: $color-accent;
-
-          &:hover {
-            background: rgba($color-accent, 0.2);
-          }
+          background: #c3fcd2;
+          color: #0e0e10;
         }
       }
 
-      // Дни других месяцев
       &.other-month {
-        color: $color-grey-3;
+        color: #93939b;
         cursor: not-allowed;
-
-        &:hover {
-          background: transparent;
-        }
       }
     }
   }
 
-  // Кнопки действий
   &-actions {
-    padding: $space-5;
-    border-top: 1px solid $color-grey-2;
     display: flex;
-    gap: $space-4;
-    justify-content: flex-end;
+    gap: 20px;
+    justify-content: space-between;
+
+    .btn-cancel,
+    .btn-save {
+      width: 148px;
+      height: 53px;
+      border-radius: 10px;
+      font-family: $font-primary;
+      font-weight: 500;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid;
+    }
 
     .btn-cancel {
-      @extend .base-button;
-      @extend .base-button--secondary;
-      min-width: 80px;
+      background: $color-white;
+      border-color: #55555c;
+      color: #0e0e10;
     }
 
     .btn-save {
-      @extend .base-button;
-      @extend .base-button--primary;
-      min-width: 80px;
-    }
-  }
-}
+      background: $color-white;
+      border-color: #55555c;
+      color: #0e0e10;
 
-// Адаптивность для календаря
-@media (max-width: 768px) {
-  .calendar {
-    width: 100%;
-    max-width: 328px;
-    margin: 0 auto;
+      &:not(:disabled) {
+        background: #0e0e10;
+        border-color: #0e0e10;
+        color: #f1f4fd;
+      }
 
-    &-grid {
-      padding: $space-4;
-    }
-
-    &-day {
-      width: 36px !important;
-      height: 36px !important;
+      &:disabled {
+        background: $color-grey-1;
+        border-color: $color-grey-3;
+        color: $color-grey-3;
+      }
     }
   }
 }
