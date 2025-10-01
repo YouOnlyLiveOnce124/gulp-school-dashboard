@@ -700,8 +700,8 @@ const BasePagination = {
     // Вычисляем диапазон отображаемых страниц
     visiblePages() {
       const half = Math.floor(this.maxVisiblePages / 2)
-      let start = Math.max(2, this.currentPage - half) // Начинаем с 2, т.к. 1 всегда показываем
-      let end = Math.min(this.totalPages - 1, start + this.maxVisiblePages - 1) // Заканчиваем предпоследней
+      let start = Math.max(2, this.currentPage - half)
+      let end = Math.min(this.totalPages - 1, start + this.maxVisiblePages - 1)
 
       // Корректируем start если end достиг предела
       if (end === this.totalPages - 1) {
@@ -1293,10 +1293,9 @@ const App = {
 
       try {
         const safePage = Math.max(1, Math.min(page, 100))
-        // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
+
         const response = await window.getSchools(safePage, count, regionId)
 
-        // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
         const newSchools = window.transformSchoolData(response.list || [])
 
         if (isAppend) {
@@ -1408,7 +1407,6 @@ const App = {
     },
 
     async loadRegions() {
-      // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
       this.regions = await window.getRegions()
       console.log('✅ Регионы загружены:', this.regions.length, 'шт.')
     },
