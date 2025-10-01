@@ -68,7 +68,7 @@ function scripts() {
     })
 }
 
-// ИЗОБРАЖЕНИЯ ← НОВАЯ ЗАДАЧА
+// ИЗОБРАЖЕНИЯ
 function images() {
   const fs = require('fs')
   if (!fs.existsSync('dist/images')) {
@@ -85,6 +85,19 @@ function images() {
     })
 }
 
+// UI-KIT - НОВАЯ ЗАДАЧА
+function uiKit() {
+  console.log('🎨 Копируем UI-Kit...')
+
+  return gulp
+    .src('src/ui-kit.html')
+    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(gulp.dest(paths.dist))
+    .on('end', () => {
+      console.log('✅ UI-Kit скопирован!')
+    })
+}
+
 // Сервер
 function serve() {
   browserSync.init({
@@ -96,18 +109,20 @@ function serve() {
 // Вотчер
 function watch() {
   gulp.watch(paths.src.html, html)
-  gulp.watch('src/scss/**/*.scss', styles) // ← ИЗМЕНИЛ для отслеживания всех SCSS
+  gulp.watch('src/scss/**/*.scss', styles)
   gulp.watch('src/js/**/*.js', scripts)
-  gulp.watch(paths.src.images, images) // ← ДОБАВИЛ отслеживание изображений
+  gulp.watch(paths.src.images, images)
+  gulp.watch('src/ui-kit.html', uiKit)
 }
 
 // Таски
-const build = gulp.series(clean, gulp.parallel(html, styles, scripts, images)) // ← ДОБАВИЛ images
+const build = gulp.series(clean, gulp.parallel(html, styles, scripts, images, uiKit))
 const dev = gulp.series(build, gulp.parallel(serve, watch))
 
 exports.clean = clean
 exports.build = build
 exports.dev = dev
 exports.scripts = scripts
-exports.images = images // ← ДОБАВИЛ экспорт
+exports.images = images
+exports.uiKit = uiKit
 exports.default = dev

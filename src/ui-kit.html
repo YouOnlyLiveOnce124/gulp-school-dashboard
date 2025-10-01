@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Dashboard UI-Kit</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+      /* Стили только для UI-Kit страницы */
+      .ui-kit-body {
+        background: #f8f9fa;
+        margin: 0;
+        padding: 40px 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+
+      .ui-kit-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .ui-kit-header {
+        text-align: center;
+        margin-bottom: 60px;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .ui-kit-header h1 {
+        color: #1a7b3c;
+        margin: 0 0 10px 0;
+        font-size: 2.5em;
+      }
+
+      .ui-kit-header p {
+        color: #687588;
+        font-size: 1.2em;
+        margin: 0;
+      }
+
+      .ui-kit-section {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .ui-kit-section h2 {
+        color: #0e0e10;
+        margin: 0 0 20px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f0f0f7;
+        font-size: 1.5em;
+      }
+
+      .component-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 20px;
+      }
+
+      .component-example {
+        padding: 20px;
+        border: 1px solid #f0f0f7;
+        border-radius: 8px;
+      }
+
+      .component-example h3 {
+        color: #55555c;
+        margin: 0 0 15px 0;
+        font-size: 1em;
+        font-weight: 500;
+      }
+
+      .full-width {
+        grid-column: 1 / -1;
+      }
+
+      /* Демо-контейнеры для компонентов */
+      .demo-container {
+        margin: 10px 0;
+      }
+
+      .demo-input {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .demo-select {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .code-example {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        border: 1px solid #e5e5eb;
+      }
+    </style>
+  </head>
+  <body class="ui-kit-body">
+    <div class="ui-kit-container">
+      <!-- Шапка -->
+      <header class="ui-kit-header">
+        <h1>School Dashboard UI-Kit</h1>
+      </header>
+
+      <!-- Кнопки -->
+      <section class="ui-kit-section">
+        <h2>Кнопки</h2>
+        <div class="component-grid">
+          <div class="component-example">
+            <h3>Primary Button</h3>
+            <div class="demo-container">
+              <button class="base-button base-button--primary">Скачать</button>
+            </div>
+            <div class="code-example">
+              &lt;button class="base-button base-button--primary"&gt;Скачать&lt;/button&gt;
+            </div>
+          </div>
+
+          <div class="component-example">
+            <h3>Secondary Button</h3>
+            <div class="demo-container">
+              <button class="base-button base-button--secondary">Отмена</button>
+            </div>
+            <div class="code-example">
+              &lt;button class="base-button base-button--secondary"&gt;Отмена&lt;/button&gt;
+            </div>
+          </div>
+
+          <div class="component-example">
+            <h3>Disabled Button</h3>
+            <div class="demo-container">
+              <button class="base-button base-button--primary" disabled>Неактивно</button>
+            </div>
+            <div class="code-example">
+              &lt;button class="base-button base-button--primary"
+              disabled&gt;Неактивно&lt;/button&gt;
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Формы -->
+      <section class="ui-kit-section">
+        <h2>Элементы форм</h2>
+        <div class="component-grid">
+          <div class="component-example">
+            <h3>Поле ввода</h3>
+            <div class="demo-container demo-input">
+              <div class="base-input">
+                <input type="text" placeholder="Введите текст..." />
+              </div>
+            </div>
+            <div class="code-example">
+              &lt;div class="base-input"&gt;<br />
+              &nbsp;&nbsp;&lt;input type="text" placeholder="Введите текст..."&gt;<br />
+              &lt;/div&gt;
+            </div>
+          </div>
+
+          <div class="component-example">
+            <h3>Выпадающий список (статичный пример)</h3>
+            <div class="demo-container demo-select">
+              <div class="base-select base-select--open">
+                <div class="base-select__trigger">
+                  <span class="base-select__value">Все регионы</span>
+                  <span class="base-select__arrow"></span>
+                </div>
+                <div class="base-select__dropdown">
+                  <div class="base-select__option base-select__option--selected">Все регионы</div>
+                  <div class="base-select__option">Московская область</div>
+                  <div class="base-select__option">Санкт-Петербург</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Пагинация -->
+      <section class="ui-kit-section">
+        <h2>Пагинация</h2>
+        <div class="component-example full-width">
+          <div class="demo-container">
+            <div class="base-pagination">
+              <button class="base-pagination__nav"></button>
+              <div class="base-pagination__pages">
+                <button class="base-pagination__page base-pagination__page--active">1</button>
+                <button class="base-pagination__page">2</button>
+                <button class="base-pagination__page">3</button>
+                <span class="base-pagination__ellipsis">...</span>
+                <button class="base-pagination__page">10</button>
+              </div>
+              <button class="base-pagination__nav"></button>
+            </div>
+          </div>
+          <div class="code-example">
+            &lt;div class="base-pagination"&gt;<br />
+            &nbsp;&nbsp;&lt;button class="base-pagination__nav"&gt;&lt;/button&gt;<br />
+            &nbsp;&nbsp;&lt;div class="base-pagination__pages"&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="base-pagination__page
+            base-pagination__page--active"&gt;1&lt;/button&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="base-pagination__page"&gt;2&lt;/button&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="base-pagination__page"&gt;3&lt;/button&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;span
+            class="base-pagination__ellipsis"&gt;...&lt;/span&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="base-pagination__page"&gt;10&lt;/button&gt;<br />
+            &nbsp;&nbsp;&lt;/div&gt;<br />
+            &nbsp;&nbsp;&lt;button class="base-pagination__nav"&gt;&lt;/button&gt;<br />
+            &lt;/div&gt;
+          </div>
+        </div>
+      </section>
+
+      <!-- Таблица -->
+      <section class="ui-kit-section">
+        <h2>Таблица</h2>
+        <div class="component-example full-width">
+          <div class="demo-container">
+            <div class="base-table" role="table">
+              <div class="base-table__header" role="rowgroup">
+                <div class="base-table__header-row" role="row">
+                  <div class="base-table__header-cell">Регион</div>
+                  <div class="base-table__header-cell">Название</div>
+                  <div class="base-table__header-cell">Адрес</div>
+                  <div class="base-table__header-cell">Уровень образования</div>
+                </div>
+              </div>
+              <div class="base-table__body" role="rowgroup">
+                <div class="base-table__row" role="row">
+                  <div class="base-table__cell" role="cell">Московская область</div>
+                  <div class="base-table__cell" role="cell">Школа №1</div>
+                  <div class="base-table__cell" role="cell">ул. Ленина, 1</div>
+                  <div class="base-table__cell" role="cell">
+                    <div class="education-tags">
+                      <span class="education-tag">Среднее</span>
+                      <span class="education-tag">Высшее</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="code-example">// HTML структура таблицы...</div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
