@@ -230,6 +230,35 @@
   }
 }
 
+.education-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .education-tag {
+    padding: 3px 8px;
+    border: 1px solid rgba(#0e0e10, 0.1);
+    border-radius: 8px;
+    background: $color-white;
+
+    font-family: $font-primary;
+    font-weight: $font-weight-regular;
+    font-size: 12px;
+    line-height: 130%;
+    color: $color-black-1;
+    white-space: nowrap;
+
+    // Автоматическая ширина в зависимости от контента
+    min-width: auto;
+    display: inline-block;
+    text-align: center;
+  }
+}
+
+.base-table__cell.education-cell {
+  padding: 8px 12px;
+  align-items: flex-start;
+}
 // Анимация скелетона
 @keyframes skeleton-loading {
   0% {

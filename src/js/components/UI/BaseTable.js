@@ -42,6 +42,25 @@ const BaseTable = {
     handleSort(columnKey) {
       this.$emit('sort', columnKey)
     },
+
+    getEducationTags(educationData) {
+      if (!educationData) return []
+
+      // Если данные приходят в виде массива
+      if (Array.isArray(educationData)) {
+        return educationData
+      }
+
+      // Если данные приходят в виде строки с разделителями
+      if (typeof educationData === 'string') {
+        return educationData
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter((tag) => tag)
+      }
+
+      return [educationData]
+    },
   },
 
   template: `
@@ -141,8 +160,27 @@ const BaseTable = {
             </div>
 
             <!-- Ячейки с данными -->
-            <div v-for="column in columns" :key="column.key" class="base-table__cell" role="cell">
-              {{ row[column.key] }}
+            <div
+              v-for="column in columns"
+              :key="column.key"
+              class="base-table__cell"
+              role="cell"
+              :class="{ 'education-cell': column.key === 'education_level' }"
+            >
+              <template v-if="column.key === 'education_level' && row[column.key]">
+                <div class="education-tags">
+                  <span
+                    v-for="(tag, tagIndex) in getEducationTags(row[column.key])"
+                    :key="tagIndex"
+                    class="education-tag"
+                  >
+                    {{ tag }}
+                  </span>
+                </div>
+              </template>
+              <template v-else>
+                {{ row[column.key] }}
+              </template>
             </div>
           </div>
         </template>
