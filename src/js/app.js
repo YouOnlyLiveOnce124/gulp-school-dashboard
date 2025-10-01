@@ -22,7 +22,8 @@ const App = {
       regions: [],
       selectedRegion: '',
       filteredCurrentPage: 1,
-
+      sortBy: '',
+      sortDirection: '',
       // Фильтры
       schoolTypes: [
         { value: 'all', label: 'Все виды' },
@@ -140,6 +141,16 @@ const App = {
           : this.schools.length
       return Math.min(end, total)
     },
+
+    displayedSchools() {
+      // Сначала применяем сортировку
+      const sortedData = window.sortSchools(this.filteredSchools, this.sortBy, this.sortDirection)
+
+      // Потом пагинацию
+      const startIndex = (this.filteredCurrentPage - 1) * this.selectedPageSize
+      const endIndex = startIndex + this.selectedPageSize
+      return sortedData.slice(startIndex, endIndex)
+    },
   },
 
   watch: {
@@ -242,6 +253,14 @@ const App = {
       window.exportSchoolsToTxt(this.selectedSchools, this.schools)
     },
 
+    handleSort(columnKey) {
+      const newDirection = window.getNextSortDirection(this.sortBy, columnKey, this.sortDirection)
+
+      this.sortBy = columnKey
+      this.sortDirection = newDirection
+
+      console.log(`🔄 Сортировка: ${columnKey}, направление: ${newDirection}`)
+    },
     async handlePageChange(page) {
       this.errorPage = page
       this.clearError()
@@ -434,14 +453,17 @@ const App = {
             <div class="table-data-container">
               <!-- ТАБЛИЦА С ДАННЫМИ -->
               <BaseTable
-                :columns="tableColumns"
-                :data="displayedSchools"
-                :loading="loading"
-                :selected-items="selectedSchools"
-                :is-indeterminate="isIndeterminate"
-                @select-all="handleSelectAll"
-                @select-item="handleSelectSchool"
-              />
+  :columns="tableColumns"
+  :data="displayedSchools"
+  :loading="loading"
+  :selected-items="selectedSchools"
+  :is-indeterminate="isIndeterminate"
+  :sort-by="sortBy"
+  :sort-direction="sortDirection"
+  @select-all="handleSelectAll"
+  @select-item="handleSelectSchool"
+  @sort="handleSort"
+/>
             </div>
 
             <!-- НОВЫЙ КОНТЕЙНЕР ПАГИНАЦИИ ВНИЗУ -->
