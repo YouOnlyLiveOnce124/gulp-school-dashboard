@@ -103,11 +103,13 @@ const BaseCalendar = {
     canSelectDate(date) {
       const dateObj = new Date(date)
       const today = new Date()
-      today.setHours(0, 0, 0, 0)
 
-      // Разрешаем ВСЕ даты ДО сегодня включительно
-      // dateObj <= today - сегодня и все прошлые даты
-      return dateObj <= today
+      // Сравниваем только даты (без времени)
+      const dateOnly = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())
+      const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
+      // Разрешаем все даты ДО сегодня включительно
+      return dateOnly <= todayOnly
     },
 
     prevMonth() {
