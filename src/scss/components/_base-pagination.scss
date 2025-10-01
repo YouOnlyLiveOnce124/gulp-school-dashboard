@@ -56,7 +56,6 @@
       background-size: contain;
     }
 
-    // Для кнопки "Вперед" меняем стрелку
     &:last-child::before {
       background-image: url('../images/arrow-right.png');
     }
@@ -175,7 +174,7 @@
 @media (max-width: 480px) {
   .base-pagination {
     &__pages {
-      display: none; // Скрываем номера страниц на очень маленьких экранах
+      display: none;
     }
 
     &__nav {

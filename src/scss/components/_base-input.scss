@@ -24,7 +24,7 @@
     border-color: $color-black-1;
   }
 
-  // Focus состояние (как в Figma)
+  // Focus состояние
   &:focus {
     border-color: $color-accent;
     box-shadow: 0 0 0 2px rgba($color-accent, 0.1);
@@ -43,7 +43,7 @@
     }
   }
 
-  // Ошибка (можно добавить позже)
+  // Ошибка
   &.error {
     border-color: $color-error;
 

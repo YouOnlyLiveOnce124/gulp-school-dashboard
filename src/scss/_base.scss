@@ -11,7 +11,7 @@ $font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica 
 }
 
 body {
-  font-family: $font-system; // Используем системные шрифты
+  font-family: $font-system;
   font-size: $text-body;
   color: $color-black-1;
   background: $color-white;

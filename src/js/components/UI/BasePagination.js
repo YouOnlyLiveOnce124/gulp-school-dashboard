@@ -26,8 +26,8 @@ const BasePagination = {
     // Вычисляем диапазон отображаемых страниц
     visiblePages() {
       const half = Math.floor(this.maxVisiblePages / 2)
-      let start = Math.max(2, this.currentPage - half) // Начинаем с 2, т.к. 1 всегда показываем
-      let end = Math.min(this.totalPages - 1, start + this.maxVisiblePages - 1) // Заканчиваем предпоследней
+      let start = Math.max(2, this.currentPage - half)
+      let end = Math.min(this.totalPages - 1, start + this.maxVisiblePages - 1)
 
       // Корректируем start если end достиг предела
       if (end === this.totalPages - 1) {

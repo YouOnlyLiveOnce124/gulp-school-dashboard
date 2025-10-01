@@ -193,10 +193,9 @@ const App = {
 
       try {
         const safePage = Math.max(1, Math.min(page, 100))
-        // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
+
         const response = await window.getSchools(safePage, count, regionId)
 
-        // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
         const newSchools = window.transformSchoolData(response.list || [])
 
         if (isAppend) {
@@ -308,7 +307,6 @@ const App = {
     },
 
     async loadRegions() {
-      // ИСПОЛЬЗУЕМ schoolsApi.js вместо дублирования
       this.regions = await window.getRegions()
       console.log('✅ Регионы загружены:', this.regions.length, 'шт.')
     },

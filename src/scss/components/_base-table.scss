@@ -5,12 +5,12 @@
   border-radius: $radius-lg;
   overflow: hidden;
 
-  // Заголовок таблицы - ч
+  // Заголовок таблицы
   &__header {
     &-row {
       display: grid;
       grid-template-columns: 60px repeat(4, 1fr);
-      align-items: stretch; // ← МЕНЯЕМ НА STRETCH чтобы растягивались
+      align-items: stretch;
       min-height: $height-table-header;
     }
   }
@@ -27,8 +27,8 @@
     line-height: 130%;
     background: $color-grey-1 !important;
     display: flex;
-    align-items: center; // ← ВЫРАВНИВАЕМ ПО ЦЕНТРУ
-    min-height: $height-table-header; // ← ДОБАВЛЯЕМ МИНИМАЛЬНУЮ ВЫСОТУ
+    align-items: center;
+    min-height: $height-table-header;
 
     // СТИЛИ ДЛЯ СОРТИРУЕМЫХ КОЛОНОК
     &--sortable {
@@ -50,7 +50,7 @@
     align-items: center;
     justify-content: center;
     padding: $space-4;
-    min-height: $height-table-header; // ← ТАКАЯ ЖЕ ВЫСОТА
+    min-height: $height-table-header;
 
     input[type='checkbox'] {
       width: 20px;
@@ -138,7 +138,7 @@
   &__row {
     display: grid;
     grid-template-columns: 60px repeat(4, 1fr);
-    align-items: stretch; // ← МЕНЯЕМ НА STRETCH
+    align-items: stretch;
     min-height: $height-table-row;
     border-bottom: 1px solid $color-grey-2;
     transition: all 0.3s ease;
@@ -149,7 +149,7 @@
 
       // ДЕЛАЕМ ХОВЕР НА ВСЮ ВЫСОТУ СТРОКИ
       .base-table__cell {
-        background: transparent !important; // ← ПРОЗРАЧНЫЙ ФОН ПРИ ХОВЕРЕ
+        background: transparent !important;
       }
     }
 

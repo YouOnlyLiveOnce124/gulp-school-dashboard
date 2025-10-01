@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "gulp dev",
     "build": "gulp build",
-    "clean": "gulp clean"
+    "clean": "gulp clean",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
@@ -15,6 +16,7 @@
     "babel-loader": "^10.0.0",
     "browser-sync": "^2.29.0",
     "del": "^6.1.0",
+    "gh-pages": "^6.3.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^5.0.1",

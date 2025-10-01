@@ -5,13 +5,12 @@
   flex-direction: column;
   align-items: center;
   margin-left: 8px;
-  gap: 1px;
+  gap: 0px;
   padding: 4px;
   border-radius: 4px;
   transition: all 0.3s ease;
   cursor: pointer;
 
-  // ХОВЕР ТОЛЬКО НА КОНТЕЙНЕРЕ СТРЕЛОК
   &:hover {
     background: rgba($color-black-1, 0.1);
   }
@@ -26,18 +25,14 @@
     background-color: transparent;
     filter: brightness(0) contrast(200%);
 
-    // УБИРАЕМ ВСЕ ТРАНЗИШЕНЫ И ТРАНСФОРМЫ У СТРЕЛОК
-    // transition: none; ← УБИРАЕМ
-    // transform: none; ← УБИРАЕМ
-
     &--up {
-      background-image: url('../../images/sort-arrow-up.png');
-      rotate: -90deg;
+      background-image: url("data:image/svg+xml,%3Csvg width='6' height='12' viewBox='0 0 6 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 8L3 10L5 8' stroke='%2355555C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      rotate: 90deg;
     }
 
     &--down {
-      background-image: url('../../images/sort-arrow-down.png');
-      rotate: 90deg;
+      background-image: url("data:image/svg+xml,%3Csvg width='6' height='12' viewBox='0 0 6 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3 2L5 4' stroke='%2355555C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      rotate: -90deg;
     }
   }
 }

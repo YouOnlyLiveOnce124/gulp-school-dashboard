@@ -37,13 +37,13 @@
   align-items: center;
   height: 56px;
   margin-bottom: $space-7;
-  padding: 0 8px; // ← ДОБАВИЛИ ВНУТРЕННИЕ ОТСТУПЫ
+  padding: 0 8px;
 
   @media (max-width: 768px) {
     flex-direction: column;
     gap: $space-5;
     height: auto;
-    padding: 0; // ← НА МОБИЛЬНЫХ УБИРАЕМ
+    padding: 0;
   }
 }
 
@@ -132,7 +132,7 @@
   padding: 0;
   border-bottom: none;
   height: auto;
-  background: transparent; // ← УБЕДИСЬ ЧТО ФОН ПРОЗРАЧНЫЙ
+  background: transparent;
 }
 
 // Результаты поиска внутри таблицы
