@@ -12,11 +12,15 @@ function getDisplayedSchools(
   selectedPageSize
 ) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
+    // При поиске/фильтрации используем filteredSchools
     const startIndex = (filteredCurrentPage - 1) * selectedPageSize
     const endIndex = startIndex + selectedPageSize
     return filteredSchools.slice(startIndex, endIndex)
   } else {
-    return schools
+    // БЕЗ поиска/фильтрации тоже слайсим schools для текущей страницы
+    const startIndex = (filteredCurrentPage - 1) * selectedPageSize
+    const endIndex = startIndex + selectedPageSize
+    return schools.slice(startIndex, endIndex)
   }
 }
 

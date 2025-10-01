@@ -111,10 +111,34 @@ const App = {
       )
     },
     startRecord() {
-      return (this.currentPage - 1) * this.selectedPageSize + 1
+      let start
+      if (this.searchValue.trim() !== '' || this.selectedStatus !== 'all') {
+        start = (this.currentDisplayPage - 1) * this.selectedPageSize + 1
+      } else {
+        start = (this.currentPage - 1) * this.selectedPageSize + 1
+      }
+
+      // Не может быть больше общего количества записей
+      const total =
+        this.searchValue.trim() !== '' || this.selectedStatus !== 'all'
+          ? this.filteredSchools.length
+          : this.schools.length
+      return Math.min(start, total)
     },
+
     endRecord() {
-      return Math.min(this.currentPage * this.selectedPageSize, this.filteredSchools.length)
+      let end
+      if (this.searchValue.trim() !== '' || this.selectedStatus !== 'all') {
+        end = this.currentDisplayPage * this.selectedPageSize
+      } else {
+        end = this.currentPage * this.selectedPageSize
+      }
+
+      const total =
+        this.searchValue.trim() !== '' || this.selectedStatus !== 'all'
+          ? this.filteredSchools.length
+          : this.schools.length
+      return Math.min(end, total)
     },
   },
 
