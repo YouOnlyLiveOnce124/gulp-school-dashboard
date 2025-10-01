@@ -53,48 +53,53 @@
 
 ## 📁 Структура проекта
 
-src/
-├── images/ # Изображения к проекту
-├── js/
-│ ├── app.js # Главный Vue приложение
-│ └── components/ # UI компоненты
-│ ├── BaseButton.js # Кнопки
-│ ├── BaseCalendar.js # Календарь выбора дат
-│ ├── BaseInput.js # Поля ввода
-│ ├── BasePagination.js # Пагинация таблицы
-│ ├── BaseSelect.js # Выпадающие списки
-│ └── BaseTable.js # Основная таблица
-├── scss/
-│ ├── components/ # Стили компонентов
-│ │ ├── \_base-button.scss # Стили кнопок
-│ │ ├── \_base-calendar.scss # Стили календаря
-│ │ ├── \_base-input.scss # Стили полей ввода
-│ │ ├── \_base-pagination.scss # Стили пагинации
-│ │ ├── \_base-select.scss # Стили выпадающих списков
-│ │ ├── \_base-table.scss # Стили таблицы
-│ │ ├── \_filters-row.scss # Стили строки фильтров
-│ │ ├── \_header.scss # Стили шапки
-│ │ ├── \_table-section.scss # Стили секции таблицы
-│ │ └── \_table-sort-icons.scss # Стили иконок сортировки
-│ ├── \_base.scss # Сброс стилей и базовые элементы
-│ ├── \_variables.scss # Переменные (цвета, шрифты, отступы)
-│ ├── app.scss # Стили приложения
-│ └── main.scss # Главный файл стилей
-├── services/ # Сервисы для работы с API
-│ ├── initService.js # Сервис инициализации
-│ ├── schoolsApi.js # API методы для школ
-│ └── schoolsService.js # Бизнес-логика работы со школами
-├── utils/ # Утилиты
-│ ├── commonUtils.js # Общие утилиты
-│ ├── dateUtils.js # Утилиты для работы с датами
-│ ├── exportUtils.js # Утилиты для экспорта данных
-│ ├── filterUtils.js # Утилиты фильтрации
-│ ├── paginationUtils.js # Утилиты пагинации
-│ ├── searchUtils.js # Утилиты поиска
-│ ├── selectionUtils.js # Утилиты выбора элементов
-│ └── sortUtils.js # Утилиты сортировки
-├── index.html # Главный HTML файл
-└── test-api.html # Тестовая страница API
+```
+school-dashboard/
+├── 📁 src/
+│   ├── 📁 images/          # Изображения проекта
+│   ├── 📁 js/
+│   │   ├── 🟨 app.js              # Главное Vue приложение
+│   │   └── 📁 components/         # UI компоненты
+│   │       ├── 🟦 BaseButton.js      # Кнопки
+│   │       ├── 🟦 BaseCalendar.js    # Календарь выбора дат
+│   │       ├── 🟦 BaseInput.js       # Поля ввода
+│   │       ├── 🟦 BasePagination.js  # Пагинация таблицы
+│   │       ├── 🟦 BaseSelect.js      # Выпадающие списки
+│   │       └── 🟦 BaseTable.js       # Основная таблица
+│   ├── 📁 scss/
+│   │   ├── 📁 components/          # Стили компонентов
+│   │   │   ├── 🎨 _base-button.scss      # Стили кнопок
+│   │   │   ├── 🎨 _base-calendar.scss    # Стили календаря
+│   │   │   ├── 🎨 _base-input.scss       # Стили полей ввода
+│   │   │   ├── 🎨 _base-pagination.scss  # Стили пагинации
+│   │   │   ├── 🎨 _base-select.scss      # Стили выпадающих списков
+│   │   │   ├── 🎨 _base-table.scss       # Стили таблицы
+│   │   │   ├── 🎨 _filters-row.scss      # Стили строки фильтров
+│   │   │   ├── 🎨 _header.scss           # Стили шапки
+│   │   │   ├── 🎨 _table-section.scss    # Стили секции таблицы
+│   │   │   └── 🎨 _table-sort-icons.scss # Стили иконок сортировки
+│   │   ├── 🎨 _base.scss           # Сброс стилей и базовые элементы
+│   │   ├── 🎨 _variables.scss      # Переменные (цвета, шрифты, отступы)
+│   │   ├── 🎨 app.scss             # Стили приложения
+│   │   └── 🎨 main.scss            # Главный файл стилей
+│   ├── 📁 services/           # Сервисы для работы с API
+│   │   ├── 🔧 initService.js       # Сервис инициализации
+│   │   ├── 🔧 schoolsApi.js        # API методы для школ
+│   │   └── 🔧 schoolsService.js    # Бизнес-логика работы со школами
+│   ├── 📁 utils/              # Утилиты
+│   │   ├── ⚙️ commonUtils.js       # Общие утилиты
+│   │   ├── ⚙️ dateUtils.js         # Утилиты для работы с датами
+│   │   ├── ⚙️ exportUtils.js       # Утилиты для экспорта данных
+│   │   ├── ⚙️ filterUtils.js       # Утилиты фильтрации
+│   │   ├── ⚙️ paginationUtils.js   # Утилиты пагинации
+│   │   ├── ⚙️ searchUtils.js       # Утилиты поиска
+│   │   ├── ⚙️ selectionUtils.js    # Утилиты выбора элементов
+│   │   └── ⚙️ sortUtils.js         # Утилиты сортировки
+│   ├── 🌐 index.html          # Главный HTML файл
+│   └── 🧪 test-api.html       # Тестовая страница API
+├── 📁 dist/                  # Собранные файлы (после build)
+└── 📄 gulpfile.js            # Конфигурация Gulp
+```
 
 ## 🎯 Ключевые компоненты
 
