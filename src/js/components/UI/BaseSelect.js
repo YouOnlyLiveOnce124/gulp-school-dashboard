@@ -75,7 +75,7 @@ const BaseSelect = {
         <span class="base-select__value" :class="{ 'base-select__placeholder': !modelValue }">
           {{ displayText }}
         </span>
-        <span class="base-select__arrow">▼</span>
+        <span class="base-select__arrow"></span>
       </div>
 
       <!-- Выпадающий список -->

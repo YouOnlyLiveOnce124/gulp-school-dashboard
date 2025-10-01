@@ -335,6 +335,100 @@
   }
 }
 
+//КОНТЕЙНЕР ПАГИНАЦИИ
+.table-pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 24px;
+  gap: 20px;
+  border-top: 1px solid $color-grey-2;
+  margin-top: 0;
+
+  // Левая часть: пагинация
+  .pagination-left {
+    display: flex;
+    align-items: center;
+  }
+
+  // Правая часть: информация + "Показывать по"
+  .pagination-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    // Информация о записях
+    .pagination-info {
+      font-family: $font-primary;
+      font-weight: $font-weight-regular;
+      font-size: 12px;
+      line-height: 130%;
+      color: #687588;
+      white-space: nowrap;
+    }
+
+    // Контейнер для "Показывать" + селект
+    .page-size-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .page-size-label {
+        font-family: $font-primary;
+        font-weight: $font-weight-regular;
+        font-size: 12px;
+        line-height: 130%;
+        color: #687588;
+        white-space: nowrap;
+      }
+
+      .page-size-select {
+        width: 80px;
+
+        .base-select__trigger {
+          height: 36px;
+          padding: 8px 12px;
+          border: 1px solid #d3d3de;
+          border-radius: 8px;
+          background: $color-white;
+
+          .base-select__value {
+            font-size: 12px;
+            line-height: 130%;
+            color: $color-black-1;
+          }
+
+          .base-select__arrow {
+            font-size: 10px;
+            color: #55555c;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .table-pagination-container {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+
+    .pagination-right {
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+
+      .page-size-control {
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+}
+
 // Адаптивность
 @media (max-width: 1024px) {
   #app {

@@ -3,9 +3,8 @@
 .base-pagination {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: $space-4;
-  padding: $space-5 0;
+  gap: 24px;
+  height: 36px;
 
   // Disabled состояние
   &--disabled {
@@ -17,46 +16,86 @@
   &__pages {
     display: flex;
     align-items: center;
-    gap: $space-2;
+    gap: 2px;
   }
 
-  // Навигационные кнопки (Назад/Вперед)
+  // Навигационные кнопки (стрелки)
   &__nav {
-    min-width: 100px;
+    width: 44px;
+    height: 36px;
+    min-width: auto !important;
+    padding: 8px 12px !important;
+    border: 1px solid #d3d3de !important;
+    border-radius: 8px !important;
+    background: $color-white !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 
-    // Стили для кнопок наследуются от BaseButton
+    // Hover состояние
+    &:hover:not(:disabled) {
+      border-color: $color-accent !important;
+      background: transparent !important;
+    }
+
+    // Disabled состояние
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    // Заменяем текст на стрелки
+    &::before {
+      content: '';
+      width: 6px;
+      height: 12px;
+      background-image: url('../images/arrow-left.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+
+    // Для кнопки "Вперед" меняем стрелку
+    &:last-child::before {
+      background-image: url('../images/arrow-right.png');
+    }
   }
 
   // Кнопка страницы
   &__page {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     min-width: auto !important;
     padding: 0 !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: $radius-md !important;
-    border: 1px solid $color-grey-2 !important;
-    font-size: $text-body-sm;
-    font-weight: $font-weight-medium;
+    border-radius: 8px !important;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    font-family: $font-primary;
+    font-size: 12px;
+    font-weight: $font-weight-regular;
+    line-height: 130%;
+    color: $color-black-1;
+    transition: all 0.3s ease;
 
-    // Hover состояние
+    // Hover состояние для неактивных страниц
     &:hover:not(.base-pagination__page--active) {
-      border-color: $color-accent !important;
-      background: transparent !important;
-      color: $color-accent !important;
+      border-color: #d3d3de !important;
+      background: $color-white !important;
     }
 
     // Активная страница
     &--active {
-      background: $color-accent !important;
-      color: $color-white !important;
-      border-color: $color-accent !important;
+      background: #f0f0f7 !important;
+      border-color: transparent !important;
+      color: $color-black-1 !important;
+      font-weight: $font-weight-regular;
 
       &:hover {
-        background: $color-accent-hover !important;
-        border-color: $color-accent-hover !important;
+        background: #f0f0f7 !important;
       }
     }
   }
@@ -66,33 +105,69 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    color: $color-grey-3;
-    font-size: $text-body-sm;
+    width: 36px;
+    height: 36px;
+    color: $color-black-1;
+    font-family: $font-primary;
+    font-size: 12px;
+    font-weight: $font-weight-regular;
+    line-height: 130%;
     user-select: none;
   }
 }
 
 // Адаптивность для пагинации
-@media (max-width: 768px) {
-  .base-pagination {
+@media (max-width: 1024px) {
+  .table-pagination-container {
     flex-direction: column;
+    gap: $space-4;
+    height: auto;
+    align-items: stretch;
+
+    .pagination-info {
+      text-align: center;
+      width: auto;
+    }
+
+    .pagination-controls {
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .table-pagination-container {
+    padding: 0 $space-4;
+
+    .pagination-controls {
+      flex-direction: column;
+      gap: $space-4;
+      align-items: center;
+
+      .page-size-control {
+        order: -1;
+      }
+    }
+  }
+
+  .base-pagination {
     gap: $space-4;
 
     &__pages {
-      order: -1;
-    }
-
-    &__nav {
-      width: 100%;
-      max-width: 200px;
+      gap: 1px;
     }
 
     &__page,
     &__ellipsis {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
+      font-size: 11px;
+    }
+
+    &__nav {
+      width: 40px;
+      height: 32px;
+      padding: 6px 10px !important;
     }
   }
 }
@@ -100,14 +175,12 @@
 @media (max-width: 480px) {
   .base-pagination {
     &__pages {
-      gap: $space-1;
+      display: none; // Скрываем номера страниц на очень маленьких экранах
     }
 
-    &__page,
-    &__ellipsis {
-      width: 32px;
-      height: 32px;
-      font-size: $text-caption;
+    &__nav {
+      width: 100%;
+      max-width: 120px;
     }
   }
 }
