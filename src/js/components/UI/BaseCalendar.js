@@ -40,7 +40,6 @@ const BaseCalendar = {
       const firstDay = new Date(this.currentYear, this.currentMonthIndex, 1)
       const lastDay = new Date(this.currentYear, this.currentMonthIndex + 1, 0)
 
-      // Дни предыдущего месяца
       const prevMonthLastDay = new Date(this.currentYear, this.currentMonthIndex, 0).getDate()
       const firstDayOfWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1
 
@@ -54,7 +53,6 @@ const BaseCalendar = {
         })
       }
 
-      // Дни текущего месяца
       for (let i = 1; i <= lastDay.getDate(); i++) {
         days.push({
           day: i,
@@ -64,7 +62,6 @@ const BaseCalendar = {
         })
       }
 
-      // Дни следующего месяца
       const totalCells = 42
       const nextMonthDays = totalCells - days.length
       for (let i = 1; i <= nextMonthDays; i++) {
@@ -89,26 +86,18 @@ const BaseCalendar = {
       return `${yyyy}-${mm}-${dd}`
     },
 
-    // НОВЫЙ МЕТОД: проверка disabled даты
     isDateDisabled(year, month, day) {
       const date = new Date(year, month, day)
       const today = new Date()
       today.setHours(0, 0, 0, 0)
-
-      // Отключаем только даты ПОСЛЕ сегодня (завтра и дальше)
-      // Сегодня и все прошлые даты - доступны
       return date > today
     },
 
     canSelectDate(date) {
       const dateObj = new Date(date)
       const today = new Date()
-
-      // Сравниваем только даты (без времени)
       const dateOnly = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())
       const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-
-      // Разрешаем все даты ДО сегодня включительно
       return dateOnly <= todayOnly
     },
 
@@ -137,8 +126,6 @@ const BaseCalendar = {
 
     isInRange(date) {
       if (!this.selectedRange.start || !this.selectedRange.end) return false
-
-      // Преобразуем в timestamp для правильного сравнения
       const dateTs = new Date(date).getTime()
       const startTs = new Date(this.selectedRange.start).getTime()
       const endTs = new Date(this.selectedRange.end).getTime()
@@ -157,7 +144,6 @@ const BaseCalendar = {
     },
 
     selectDate(date) {
-      // НОВАЯ ПРОВЕРКА: нельзя выбрать disabled дату
       if (!this.canSelectDate(date)) return
 
       if (!this.selectedRange.start || (this.selectedRange.start && this.selectedRange.end)) {

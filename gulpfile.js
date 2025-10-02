@@ -8,7 +8,6 @@ const htmlmin = require('gulp-htmlmin')
 const browserSync = require('browser-sync').create()
 const del = require('del')
 
-// Пути
 const paths = {
   src: {
     html: 'src/*.html',
@@ -20,12 +19,10 @@ const paths = {
   dist: 'dist',
 }
 
-// Очистка
 function clean() {
   return del([paths.dist])
 }
 
-// HTML
 function html() {
   return gulp
     .src(paths.src.html)
@@ -34,7 +31,6 @@ function html() {
     .pipe(browserSync.stream())
 }
 
-// SCSS -> CSS
 function styles() {
   return gulp
     .src(paths.src.scss)
@@ -44,7 +40,6 @@ function styles() {
     .pipe(browserSync.stream())
 }
 
-// JS
 function scripts() {
   const fs = require('fs')
   if (!fs.existsSync('dist/js')) {
@@ -68,7 +63,6 @@ function scripts() {
     })
 }
 
-// ИЗОБРАЖЕНИЯ
 function images() {
   const fs = require('fs')
   if (!fs.existsSync('dist/images')) {
@@ -85,7 +79,6 @@ function images() {
     })
 }
 
-// UI-KIT - НОВАЯ ЗАДАЧА
 function uiKit() {
   console.log('🎨 Копируем UI-Kit...')
 
@@ -98,7 +91,6 @@ function uiKit() {
     })
 }
 
-// Сервер
 function serve() {
   browserSync.init({
     server: paths.dist,
@@ -106,7 +98,6 @@ function serve() {
   })
 }
 
-// Вотчер
 function watch() {
   gulp.watch(paths.src.html, html)
   gulp.watch('src/scss/**/*.scss', styles)
@@ -115,7 +106,6 @@ function watch() {
   gulp.watch('src/ui-kit.html', uiKit)
 }
 
-// Таски
 const build = gulp.series(clean, gulp.parallel(html, styles, scripts, images, uiKit))
 const dev = gulp.series(build, gulp.parallel(serve, watch))
 

@@ -4,7 +4,6 @@
   position: relative;
   width: 100%;
 
-  // Disabled состояние
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
@@ -14,7 +13,6 @@
     }
   }
 
-  // Открытое состояние
   &--open {
     .base-select__arrow {
       transform: rotate(180deg);
@@ -27,7 +25,6 @@
     }
   }
 
-  // Триггер (видимая часть)
   &__trigger {
     width: 100%;
     height: $height-input;
@@ -41,31 +38,26 @@
     cursor: pointer;
     transition: all 0.3s ease;
 
-    // Hover состояние
     &:hover {
       border-color: $color-black-1;
     }
 
-    // Focus состояние (когда открыт)
     .base-select--open & {
       border-color: $color-accent;
       box-shadow: 0 0 0 2px rgba($color-accent, 0.1);
     }
   }
 
-  // Выбранное значение
   &__value {
     font-size: $text-body;
     color: $color-black-1;
     font-weight: $font-weight-regular;
   }
 
-  // Placeholder текст
   &__placeholder {
     color: $color-grey-3;
   }
 
-  // Стрелка
   &__arrow {
     width: 24px;
     height: 24px;
@@ -75,20 +67,17 @@
     background-size: 6px 12px;
     transition: transform 0.3s ease;
 
-    // Убираем текстовую стрелку
     &::before {
       content: none;
     }
   }
 
-  // Открытое состояние
   &--open {
     .base-select__arrow {
       transform: rotate(180deg);
     }
   }
 
-  // Выпадающий список
   &__dropdown {
     position: absolute;
     top: 100%;
@@ -108,7 +97,6 @@
     overflow-y: auto;
   }
 
-  // Опции в выпадающем списке
   &__option {
     padding: $space-4 $space-5;
     font-size: $text-body;
@@ -117,12 +105,10 @@
     transition: all 0.2s ease;
     border-bottom: 1px solid $color-grey-1;
 
-    // Hover состояние
     &:hover:not(.base-select__option--disabled) {
       background: $color-grey-1;
     }
 
-    // Выбранная опция
     &--selected {
       background: rgba($color-accent, 0.1);
       color: $color-accent;
@@ -133,7 +119,6 @@
       }
     }
 
-    // Disabled опция
     &--disabled {
       color: $color-grey-3;
       cursor: not-allowed;
@@ -144,14 +129,12 @@
       }
     }
 
-    // Последняя опция без бордера
     &:last-child {
       border-bottom: none;
     }
   }
 }
 
-// Адаптивность для селекта
 @media (max-width: 768px) {
   .base-select {
     &__trigger {

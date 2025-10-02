@@ -46,12 +46,10 @@ const BaseTable = {
     getEducationTags(educationData) {
       if (!educationData) return []
 
-      // Если данные приходят в виде массива
       if (Array.isArray(educationData)) {
         return educationData
       }
 
-      // Если данные приходят в виде строки с разделителями
       if (typeof educationData === 'string') {
         return educationData
           .split(',')

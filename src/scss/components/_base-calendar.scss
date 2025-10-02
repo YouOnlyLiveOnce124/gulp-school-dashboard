@@ -94,7 +94,6 @@
     }
   }
 
-  // ПРОСТОЙ FLEX
   &-days {
     display: flex;
     flex-wrap: wrap;
@@ -141,7 +140,6 @@
       &.other-month {
         color: #93939b;
 
-        // Ховер для other-month, но не перекрывает in-range/selected
         &:hover:not(.in-range):not(.selected) {
           background: #c3fcd2;
         }

@@ -1,6 +1,3 @@
-/**
- * Форматирует диапазон дат для отображения
- */
 function formatDateRange(selectedDateRange) {
   if (!selectedDateRange || !selectedDateRange.start || !selectedDateRange.end) {
     return 'Выберите период'
@@ -19,9 +16,6 @@ function formatDateRange(selectedDateRange) {
   return `${format(start)} - ${format(end)}`
 }
 
-/**
- * Применяет выбранный диапазон дат
- */
 function applyDateRange(range, callback) {
   if (callback) callback(range)
   console.log('📅 Выбран диапазон:', range.start, 'до', range.end)

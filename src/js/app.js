@@ -1,6 +1,3 @@
-console.log('🎯 app.js загрузка началась!')
-
-// ========== APP КОМПОНЕНТ ==========
 const App = {
   name: 'App',
 
@@ -119,7 +116,6 @@ const App = {
         start = (this.currentPage - 1) * this.selectedPageSize + 1
       }
 
-      // Не может быть больше общего количества записей
       const total =
         this.searchValue.trim() !== '' || this.selectedStatus !== 'all'
           ? this.filteredSchools.length
@@ -143,10 +139,7 @@ const App = {
     },
 
     displayedSchools() {
-      // Сначала применяем сортировку
       const sortedData = window.sortSchools(this.filteredSchools, this.sortBy, this.sortDirection)
-
-      // Потом пагинацию
       const startIndex = (this.filteredCurrentPage - 1) * this.selectedPageSize
       const endIndex = startIndex + this.selectedPageSize
       return sortedData.slice(startIndex, endIndex)
@@ -165,7 +158,6 @@ const App = {
     selectedStatus(newStatus, oldStatus) {
       this.filteredCurrentPage = 1
       if (newStatus === 'all' && oldStatus !== 'all') {
-        console.log('🔄 Возврат к "Все статусы"')
         this.currentPage = 1
         this.fetchSchools(1, this.selectedPageSize, this.currentRegion, false)
       }
@@ -180,8 +172,6 @@ const App = {
   },
 
   methods: {
-    // API методы
-
     async fetchSchools(page = 1, count = 10, regionId = null, isAppend = false) {
       if (!isAppend && page === 1) {
         this.schools = []
@@ -193,9 +183,7 @@ const App = {
 
       try {
         const safePage = Math.max(1, Math.min(page, 100))
-
         const response = await window.getSchools(safePage, count, regionId)
-
         const newSchools = window.transformSchoolData(response.list || [])
 
         if (isAppend) {
@@ -212,12 +200,7 @@ const App = {
 
         this.totalPages = Math.min(response.pages_count || 1, 100)
         this.currentPage = safePage
-
-        console.log(
-          `✅ Страница ${safePage} загружена. Для поиска: ${this.searchSchools.length} школ`
-        )
       } catch (err) {
-        console.log(`Ошибка загрузки страницы ${page}:`, err.message)
         this.error = `Страница ${page} временно недоступна. Попробуйте другую страницу.`
         if (!isAppend && page === 1) {
           this.schools = []
@@ -231,7 +214,6 @@ const App = {
       this.error = window.clearError()
     },
 
-    // Обработчики UI
     handlePageSizeChange(newSize) {
       window.handlePageSizeChange(newSize, this.fetchSchools, this.currentRegion)
     },
@@ -257,8 +239,6 @@ const App = {
 
       this.sortBy = columnKey
       this.sortDirection = newDirection
-
-      console.log(`🔄 Сортировка: ${columnKey}, направление: ${newDirection}`)
     },
     async handlePageChange(page) {
       this.errorPage = page
@@ -308,7 +288,6 @@ const App = {
 
     async loadRegions() {
       this.regions = await window.getRegions()
-      console.log('✅ Регионы загружены:', this.regions.length, 'шт.')
     },
 
     async init() {
@@ -346,13 +325,13 @@ const App = {
     </header>
 
     <main class="main-content">
-      <!-- БЕЛАЯ ПОЛОСА МЕЖДУ ШАПКОЙ И КОНТЕНТОМ -->
+
       <div class="content-spacer"></div>
 
-      <!-- ОСНОВНОЙ КОНТЕЙНЕР С СЕРЫМ ФОНОМ -->
+      <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
       <div class="page-container">
 
-        <!-- БЕЛЫЙ БЛОК С ТАБЛИЦЕЙ -->
+        <!-- БЛОК С ТАБЛИЦЕЙ -->
         <section class="table-section">
           <!-- ВЕРХНЯЯ ПАНЕЛЬ С ЗАГОЛОВКОМ И КНОПКАМИ -->
           <div class="table-header">
@@ -464,7 +443,7 @@ const App = {
 />
             </div>
 
-            <!-- НОВЫЙ КОНТЕЙНЕР ПАГИНАЦИИ ВНИЗУ -->
+            <!--КОНТЕЙНЕР ПАГИНАЦИИ ВНИЗУ -->
 <div class="table-pagination-container">
   <!-- ЛЕВАЯ ЧАСТЬ: ПАГИНАЦИЯ -->
   <div class="pagination-left">
@@ -502,15 +481,14 @@ const App = {
 }
 
 if (typeof Vue === 'undefined') {
-  console.error('❌ Vue не загружен! Проверь подключение в HTML.')
+  console.error(' Vue не загружен! Проверь подключение в HTML.')
 } else {
-  console.log('✅ Vue загружен! Создаем приложение...')
+  console.log(' Vue загружен! Создаем приложение...')
 
   const { createApp } = Vue
 
   const app = createApp(App)
 
-  // РЕГИСТРИРУЕМ ВСЕ КОМПОНЕНТЫ
   const components = [
     ['BaseButton', BaseButton],
     ['BaseInput', BaseInput],
@@ -523,9 +501,9 @@ if (typeof Vue === 'undefined') {
   components.forEach(([name, component]) => {
     if (typeof component !== 'undefined') {
       app.component(name, component)
-      console.log(`✅ ${name} зарегистрирован!`)
+      console.log(` ${name} зарегистрирован!`)
     } else {
-      console.error(`❌ ${name} НЕ найден!`)
+      console.error(` ${name} НЕ найден!`)
     }
   })
 

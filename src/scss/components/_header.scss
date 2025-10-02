@@ -9,7 +9,6 @@
   flex-direction: column;
 }
 
-/* Верхняя часть с логотипами - 216px */
 .tech-header {
   height: 216px;
   padding: 16px 0;
@@ -18,7 +17,6 @@
   align-items: flex-start;
 }
 
-/* Контейнер для лого и контактов - 120px высотой */
 .tech-header > .header-container {
   width: 100%;
   height: 120px;
@@ -28,7 +26,6 @@
   padding: 0 32px;
 }
 
-/* Остальные стили остаются без изменений */
 .header-left .logo {
   width: 84px;
   height: 84px;
@@ -93,7 +90,6 @@
   }
 }
 
-/* Нижняя часть с "Тестовое задание" - 156px */
 .tech-head-container {
   height: 156px;
   padding: 0 32px;
@@ -114,7 +110,6 @@
   align-items: center;
 }
 
-// Адаптивность
 @media (max-width: 1024px) {
   .tech-header-group-1 {
     height: 300px;

@@ -23,13 +23,11 @@ const BasePagination = {
   emits: ['page-change'],
 
   computed: {
-    // Вычисляем диапазон отображаемых страниц
     visiblePages() {
       const half = Math.floor(this.maxVisiblePages / 2)
       let start = Math.max(2, this.currentPage - half)
       let end = Math.min(this.totalPages - 1, start + this.maxVisiblePages - 1)
 
-      // Корректируем start если end достиг предела
       if (end === this.totalPages - 1) {
         start = Math.max(2, end - this.maxVisiblePages + 1)
       }
@@ -41,12 +39,10 @@ const BasePagination = {
       return pages
     },
 
-    // Нужно ли показывать многоточие в начале
     showStartEllipsis() {
       return this.visiblePages.length > 0 && this.visiblePages[0] > 2
     },
 
-    // Нужно ли показывать многоточие в конце
     showEndEllipsis() {
       return (
         this.visiblePages.length > 0 &&
@@ -65,14 +61,13 @@ const BasePagination = {
 
   template: `
     <div class="base-pagination" :class="{ 'base-pagination--disabled': disabled }">
-      <!-- Кнопка "Назад" -->
+
       <button
         class="base-pagination__nav"
         :disabled="disabled || currentPage === 1"
         @click="handlePageChange(currentPage - 1)"
         aria-label="Предыдущая страница"
       >
-        <!-- Стрелка влево через CSS -->
       </button>
 
       <!-- Номера страниц -->
@@ -87,7 +82,7 @@ const BasePagination = {
           1
         </button>
 
-        <!-- Многоточие после первой страницы -->
+
         <span v-if="showStartEllipsis" class="base-pagination__ellipsis"> ... </span>
 
         <!-- Основные страницы -->
@@ -104,10 +99,10 @@ const BasePagination = {
           {{ page }}
         </button>
 
-        <!-- Многоточие перед последней страницей -->
+
         <span v-if="showEndEllipsis" class="base-pagination__ellipsis"> ... </span>
 
-        <!-- Последняя страница (если больше 1) -->
+
         <button
           v-if="totalPages > 1"
           :class="[
@@ -121,14 +116,14 @@ const BasePagination = {
         </button>
       </div>
 
-      <!-- Кнопка "Вперед" -->
+
       <button
         class="base-pagination__nav"
         :disabled="disabled || currentPage === totalPages"
         @click="handlePageChange(currentPage + 1)"
         aria-label="Следующая страница"
       >
-        <!-- Стрелка вправо через CSS -->
+
       </button>
     </div>
   `,

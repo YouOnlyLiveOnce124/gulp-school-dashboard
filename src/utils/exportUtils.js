@@ -1,9 +1,6 @@
-/**
- * Утилита для экспорта данных в TXT
- */
 function exportSchoolsToTxt(selectedSchools, allSchools) {
   if (selectedSchools.length === 0) {
-    alert('❌ Не выбрано ни одной школы для экспорта')
+    alert('Не выбрано ни одной школы для экспорта')
     return
   }
 
@@ -28,5 +25,5 @@ function exportSchoolsToTxt(selectedSchools, allSchools) {
   link.download = `schools_export_${new Date().toISOString().split('T')[0]}.txt`
   link.click()
 
-  alert(`✅ Экспортировано ${selectedData.length} школ в TXT файл`)
+  alert(`Экспортировано ${selectedData.length} школ в TXT файл`)
 }

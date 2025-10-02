@@ -1,6 +1,5 @@
 @import '../variables';
 
-// Основной контейнер фильтров
 .filters-row {
   display: flex;
   gap: 16px;
@@ -19,7 +18,6 @@
   }
 }
 
-// Общие стили для всех фильтров
 .filter-item {
   flex: 1;
   min-width: 0;
@@ -35,7 +33,6 @@
   }
 }
 
-// Стили для календаря
 .calendar-filter {
   display: flex;
   align-items: center;
@@ -72,7 +69,6 @@
   }
 }
 
-// Стили для селектов (Все регионы, Все виды, Все статусы)
 .filter-select {
   .base-select__trigger {
     height: 56px;

@@ -5,7 +5,6 @@
   border-radius: $radius-lg;
   overflow: hidden;
 
-  // Заголовок таблицы
   &__header {
     &-row {
       display: grid;
@@ -15,7 +14,6 @@
     }
   }
 
-  // Ячейки заголовка
   &__header-cell {
     padding: $space-4 $space-5;
     font-weight: $font-weight-bold;
@@ -30,12 +28,10 @@
     align-items: center;
     min-height: $height-table-header;
 
-    // СТИЛИ ДЛЯ СОРТИРУЕМЫХ КОЛОНОК
     &--sortable {
       cursor: pointer;
     }
 
-    // КОНТЕЙНЕР ДЛЯ ТЕКСТА И ИКОНОК СОРТИРОВКИ
     .header-cell-content {
       display: flex;
       align-items: center;
@@ -44,7 +40,6 @@
     }
   }
 
-  // Чекбокс ячейка
   &__checkbox-cell {
     display: flex;
     align-items: center;
@@ -101,7 +96,6 @@
     }
   }
 
-  // Стили для иконок сортировки
   .table-sort {
     display: inline-flex;
     flex-direction: column;
@@ -129,12 +123,10 @@
     }
   }
 
-  // Тело таблицы - УБИРАЕМ ФОН
   &__body {
     min-height: 200px;
   }
 
-  // Строки данных - УБИРАЕМ ФОН
   &__row {
     display: grid;
     grid-template-columns: 60px repeat(4, 1fr);
@@ -147,7 +139,6 @@
     &:hover {
       background: rgba($color-grey-1, 0.7) !important;
 
-      // ДЕЛАЕМ ХОВЕР НА ВСЮ ВЫСОТУ СТРОКИ
       .base-table__cell {
         background: transparent !important;
       }
@@ -179,7 +170,6 @@
     align-items: center;
   }
 
-  // Остальные стили без фонов...
   &__loading {
     padding: $space-6;
   }
@@ -248,7 +238,6 @@
     color: $color-black-1;
     white-space: nowrap;
 
-    // Автоматическая ширина в зависимости от контента
     min-width: auto;
     display: inline-block;
     text-align: center;
@@ -259,7 +248,7 @@
   padding: 8px 12px;
   align-items: flex-start;
 }
-// Анимация скелетона
+
 @keyframes skeleton-loading {
   0% {
     background-position: -200px 0;
@@ -269,7 +258,6 @@
   }
 }
 
-// Адаптивность
 @media (max-width: 1024px) {
   .base-table {
     &__header-row,

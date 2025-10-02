@@ -1,7 +1,6 @@
 @import '../variables';
 
 .base-input {
-  // Базовые стили
   width: 100%;
   height: $height-input;
   padding: $space-4 $space-5;
@@ -13,25 +12,21 @@
   color: $color-black-1;
   transition: all 0.3s ease;
 
-  // Placeholder
   &::placeholder {
     color: $color-grey-3;
     font-weight: $font-weight-regular;
   }
 
-  // Hover состояние
   &:hover:not(:disabled) {
     border-color: $color-black-1;
   }
 
-  // Focus состояние
   &:focus {
     border-color: $color-accent;
     box-shadow: 0 0 0 2px rgba($color-accent, 0.1);
     outline: none;
   }
 
-  // Disabled состояние
   &:disabled {
     background: $color-grey-1;
     border-color: $color-grey-2;
@@ -43,7 +38,6 @@
     }
   }
 
-  // Ошибка
   &.error {
     border-color: $color-error;
 
@@ -53,7 +47,6 @@
   }
 }
 
-// СТИЛИ ДЛЯ ПОИСКА В ТАБЛИЦЕ
 .table-search {
   width: 300px;
   height: 56px;
@@ -85,7 +78,6 @@
     }
   }
 
-  // ИКОНКА ПОИСКА
   &::after {
     content: '';
     position: absolute;

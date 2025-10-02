@@ -6,20 +6,17 @@
   gap: 24px;
   height: 36px;
 
-  // Disabled состояние
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
   }
 
-  // Контейнер для номеров страниц
   &__pages {
     display: flex;
     align-items: center;
     gap: 2px;
   }
 
-  // Навигационные кнопки (стрелки)
   &__nav {
     width: 44px;
     height: 36px;
@@ -33,19 +30,16 @@
     justify-content: center;
     transition: all 0.3s ease;
 
-    // Hover состояние
     &:hover:not(:disabled) {
       border-color: $color-accent !important;
       background: transparent !important;
     }
 
-    // Disabled состояние
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
 
-    // Заменяем текст на стрелки
     &::before {
       content: '';
       width: 6px;
@@ -61,7 +55,6 @@
     }
   }
 
-  // Кнопка страницы
   &__page {
     width: 36px;
     height: 36px;
@@ -80,13 +73,11 @@
     color: $color-black-1;
     transition: all 0.3s ease;
 
-    // Hover состояние для неактивных страниц
     &:hover:not(.base-pagination__page--active) {
       border-color: #d3d3de !important;
       background: $color-white !important;
     }
 
-    // Активная страница
     &--active {
       background: #f0f0f7 !important;
       border-color: transparent !important;
@@ -99,7 +90,6 @@
     }
   }
 
-  // Многоточие
   &__ellipsis {
     display: flex;
     align-items: center;
@@ -115,7 +105,6 @@
   }
 }
 
-// Адаптивность для пагинации
 @media (max-width: 1024px) {
   .table-pagination-container {
     flex-direction: column;

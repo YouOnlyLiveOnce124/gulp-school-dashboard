@@ -1,8 +1,3 @@
-/**
- * Утилиты для выбора школ (чекбоксы)
- */
-
-// Выбрать/снять все школы на текущей странице
 function handleSelectAll(selectedSchools, displayedSchools, isSelected) {
   if (isSelected) {
     const currentPageIds = displayedSchools.map((school) => school.uuid)
@@ -13,7 +8,6 @@ function handleSelectAll(selectedSchools, displayedSchools, isSelected) {
   }
 }
 
-// Выбрать/снять конкретную школу
 function handleSelectSchool(selectedSchools, schoolId, isSelected) {
   if (isSelected) {
     if (!selectedSchools.includes(schoolId)) {

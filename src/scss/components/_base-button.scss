@@ -1,7 +1,6 @@
 @import '../variables';
 
 .base-button {
-  // Базовые стили для всех кнопок
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +15,6 @@
   transition: all 0.3s ease;
   text-decoration: none;
 
-  // Состояние disabled
   &--disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -26,7 +24,6 @@
     }
   }
 
-  // Primary вариант (черный)
   &--primary {
     background: $color-black-2;
     color: $color-white;
@@ -42,7 +39,6 @@
     }
   }
 
-  // Secondary вариант (прозрачный с бордером)
   &--secondary {
     background: transparent;
     color: $color-black-1;
@@ -54,7 +50,6 @@
     }
   }
 
-  // Accent вариант (зеленый)
   &--accent {
     background: $color-accent;
     color: $color-white;
@@ -71,7 +66,6 @@
   }
 }
 
-// СТИЛИ ДЛЯ КНОПКИ СКАЧИВАНИЯ В ТАБЛИЦЕ
 .download-btn-main {
   width: 147px;
   height: 56px;
@@ -96,7 +90,6 @@
     font-weight: 500;
   }
 
-  // Иконка скачивания
   .download-icon {
     width: 17px;
     height: 21px;

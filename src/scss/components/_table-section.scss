@@ -1,20 +1,17 @@
 @import 'variables';
 
-// Белая полоса между шапкой и контентом
 .content-spacer {
   height: 48px;
   background: $color-pure-white;
   width: 100%;
 }
 
-// Основной контейнер страницы с серым фоном
 .page-container {
-  background: $color-white; // ← СЕРЫЙ ФОН #F1F4FD
+  background: $color-white;
   min-height: calc(100vh - 372px - 48px);
   padding: $space-8 0;
 }
 
-// Белый блок с таблицей
 .table-section {
   background: $color-pure-white;
   border-radius: $radius-xl;
@@ -30,7 +27,6 @@
   }
 }
 
-// Верхняя панель (Table/Cont)
 .table-header {
   display: flex;
   justify-content: space-between;
@@ -60,7 +56,6 @@
   }
 }
 
-// Панель кнопок (Bttn)
 .table-actions {
   display: flex;
   background-color: #ffffff;
@@ -83,7 +78,6 @@
   }
 }
 
-// Поиск (Input)
 .table-search {
   width: 300px;
   height: 56px;
@@ -94,13 +88,11 @@
   }
 }
 
-// Кнопка скачивания в основном блоке
 .download-btn-main {
   height: 56px;
   min-width: 147px;
 }
 
-// Панель действий (фильтр регионов + пагинация)
 .table-actions-panel {
   display: flex;
   justify-content: space-between;
@@ -126,7 +118,6 @@
   }
 }
 
-// Адаптив для верхних фильтров внутри таблицы
 .table-section .top-filters {
   margin-bottom: $space-7;
   padding: 0;
@@ -135,7 +126,6 @@
   background: transparent;
 }
 
-// Результаты поиска внутри таблицы
 .table-section .search-results-info {
   margin: $space-5 0;
   padding: 0;
@@ -144,7 +134,6 @@
   height: auto;
 }
 
-// Сообщения статуса внутри таблицы
 .table-section .status-message {
   padding: $space-8;
   text-align: center;

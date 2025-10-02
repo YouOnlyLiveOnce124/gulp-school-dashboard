@@ -9,14 +9,12 @@
 @import 'components/base-pagination';
 @import 'components/base-calendar';
 
-// Стили для главного приложения
 #app {
   min-height: 100vh;
   background: $color-white;
   padding: 0;
 }
 
-// Верхняя строка фильтров
 .top-filters {
   display: flex;
   gap: $space-5;
@@ -47,7 +45,6 @@
   }
 }
 
-// Оверлей календаря
 .calendar-overlay {
   position: fixed;
   top: 0;
@@ -67,7 +64,6 @@
   }
 }
 
-// Действия с таблицей
 .table-actions {
   display: flex;
   justify-content: space-between;
@@ -148,7 +144,6 @@
   }
 }
 
-// Обертка для таблицы с данными
 .table-data-container {
   background: $color-pure-white !important;
   border-radius: $radius-lg;
@@ -156,7 +151,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-bottom: $space-6;
 
-  // ЖЕСТКО ПЕРЕОПРЕДЕЛЯЕМ ВСЕ ФОНЫ
   .base-table {
     background: $color-pure-white !important;
     border-radius: 0 !important;
@@ -239,7 +233,7 @@
     }
   }
 }
-// Секция фильтров
+
 .filters-section {
   padding: $space-5 $space-6;
   background: $color-white;
@@ -258,7 +252,6 @@
   }
 }
 
-// Секция поиска
 .search-section {
   padding: $space-5 $space-6;
   background: $color-white;
@@ -295,7 +288,6 @@
   }
 }
 
-// Сообщения статуса
 .status-message {
   padding: $space-8;
   text-align: center;
@@ -335,7 +327,6 @@
   }
 }
 
-//КОНТЕЙНЕР ПАГИНАЦИИ
 .table-pagination-container {
   display: flex;
   justify-content: space-between;
@@ -346,19 +337,16 @@
   border-top: 1px solid $color-grey-2;
   margin-top: 0;
 
-  // Левая часть: пагинация
   .pagination-left {
     display: flex;
     align-items: center;
   }
 
-  // Правая часть: информация + "Показывать по"
   .pagination-right {
     display: flex;
     align-items: center;
     gap: 16px;
 
-    // Информация о записях
     .pagination-info {
       font-family: $font-primary;
       font-weight: $font-weight-regular;
@@ -368,7 +356,6 @@
       white-space: nowrap;
     }
 
-    // Контейнер для "Показывать" + селект
     .page-size-control {
       display: flex;
       align-items: center;
@@ -409,7 +396,6 @@
   }
 }
 
-// Адаптивность
 @media (max-width: 768px) {
   .table-pagination-container {
     flex-direction: column;
@@ -429,7 +415,6 @@
   }
 }
 
-// Адаптивность
 @media (max-width: 1024px) {
   #app {
     h1 {

@@ -1,8 +1,3 @@
-/**
- * Общие утилиты
- */
-
-// Валидация типа школы
 function validateSchoolType(newType) {
   if (newType !== 'all') {
     alert('Фильтрация по видам учреждений временно недоступна. API не поддерживает этот параметр.')
@@ -11,7 +6,6 @@ function validateSchoolType(newType) {
   return newType
 }
 
-// Очистка ошибки
 function clearError() {
   return null
 }

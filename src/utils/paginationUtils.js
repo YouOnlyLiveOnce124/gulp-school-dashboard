@@ -1,8 +1,3 @@
-/**
- * Утилиты для пагинации
- */
-
-// getDisplayedSchools - возвращает школы для текущей страницы (слайсит массив)
 function getDisplayedSchools(
   filteredSchools,
   schools,
@@ -12,19 +7,16 @@ function getDisplayedSchools(
   selectedPageSize
 ) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
-    // При поиске/фильтрации используем filteredSchools
     const startIndex = (filteredCurrentPage - 1) * selectedPageSize
     const endIndex = startIndex + selectedPageSize
     return filteredSchools.slice(startIndex, endIndex)
   } else {
-    // БЕЗ поиска/фильтрации тоже слайсим schools для текущей страницы
     const startIndex = (filteredCurrentPage - 1) * selectedPageSize
     const endIndex = startIndex + selectedPageSize
     return schools.slice(startIndex, endIndex)
   }
 }
 
-// getTotalPages - вычисляет общее количество страниц для пагинатора
 function getTotalPages(filteredSchools, totalPages, searchValue, selectedStatus, selectedPageSize) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
     return Math.ceil(filteredSchools.length / selectedPageSize)
@@ -33,7 +25,6 @@ function getTotalPages(filteredSchools, totalPages, searchValue, selectedStatus,
   }
 }
 
-// getCurrentPage - определяет какую страницу показывать в пагинаторе
 function getCurrentPage(filteredCurrentPage, currentPage, searchValue, selectedStatus) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
     return filteredCurrentPage
