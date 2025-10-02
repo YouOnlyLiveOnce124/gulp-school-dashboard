@@ -1,8 +1,3 @@
-/**
- * Сервис инициализации приложения
- */
-
-// Основная инициализация приложения
 async function initApp(fetchSchools, loadRegions, pageSize) {
   await Promise.all([fetchSchools(1, pageSize, null, false), loadRegions()])
 }
@@ -11,27 +6,24 @@ async function initApp(fetchSchools, loadRegions, pageSize) {
 async function loadRegionsData(getRegionsCallback) {
   try {
     const regions = await getRegionsCallback()
-    console.log('✅ Регионы загружены:', regions.length, 'шт.')
+    console.log('Регионы загружены:', regions.length, 'шт.')
     return regions
   } catch (error) {
-    console.error('❌ Ошибка загрузки регионов:', error)
+    console.error('Ошибка загрузки регионов:', error)
     return []
   }
 }
 
-console.log('✅ initService загружен!')
+console.log('initService загружен!')
 
 const API_BASE_URL = 'https://schooldb.skillline.ru/api'
 
-/**
- * Базовый HTTP-клиент для работы с API школ
- */
 async function apiRequest(endpoint, params = {}) {
   try {
     const queryParams = new URLSearchParams(params).toString()
     const url = `${API_BASE_URL}${endpoint}${queryParams ? `?${queryParams}` : ''}`
 
-    console.log('🔄 API Request:', url)
+    console.log('API Request:', url)
 
     const response = await fetch(url)
 
@@ -47,14 +39,11 @@ async function apiRequest(endpoint, params = {}) {
 
     return data.data
   } catch (error) {
-    console.error('❌ API Request failed:', error)
+    console.error('API Request failed:', error)
     throw error
   }
 }
 
-/**
- * Получает список школ с пагинацией и фильтрацией
- */
 async function getSchools(page = 1, count = 10, regionId = null, status = null) {
   const params = { page, count }
   if (regionId) params.region_id = regionId
@@ -62,23 +51,14 @@ async function getSchools(page = 1, count = 10, regionId = null, status = null) 
   return await apiRequest('/schools', params)
 }
 
-/**
- * Получает список всех регионов для фильтрации
- */
 async function getRegions() {
   return await apiRequest('/regions')
 }
 
-/**
- * Получает список федеральных округов
- */
 async function getFederalDistricts() {
   return await apiRequest('/federalDistricts')
 }
 
-/**
- * Трансформирует данные школы в нужный формат
- */
 function transformSchoolData(schoolsData) {
   return schoolsData.map((school) => ({
     uuid: school.uuid,
@@ -91,11 +71,6 @@ function transformSchoolData(schoolsData) {
   }))
 }
 
-/**
- * Сервис для работы со школами (API + состояние)
- */
-
-// Обработчик смены страницы
 async function handlePageChange(
   page,
   fetchCallback,
@@ -105,10 +80,8 @@ async function handlePageChange(
   selectedPageSize
 ) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
-    // Для фильтрованных данных просто меняем страницу
     return page
   } else {
-    // Для нефільтрованных данных загружаем с API
     if (fetchCallback) {
       await fetchCallback(page, selectedPageSize, currentRegion, false)
     }
@@ -116,32 +89,24 @@ async function handlePageChange(
   }
 }
 
-// Обработчик смены размера страницы
 function handlePageSizeChange(newSize, fetchCallback, currentRegion) {
   if (fetchCallback) {
     fetchCallback(1, newSize, currentRegion, false)
   }
 }
 
-// Обработчик повторной попытки загрузки
 async function handleRetry(fetchCallback, page, pageSize, currentRegion) {
   if (fetchCallback) {
     await fetchCallback(page, pageSize, currentRegion, false)
   }
 }
 
-// Обработчик первой страницы
 async function handleFirstPage(fetchCallback, pageSize, currentRegion) {
   if (fetchCallback) {
     await fetchCallback(1, pageSize, currentRegion, false)
   }
 }
 
-/**
- * Общие утилиты
- */
-
-// Валидация типа школы
 function validateSchoolType(newType) {
   if (newType !== 'all') {
     alert('Фильтрация по видам учреждений временно недоступна. API не поддерживает этот параметр.')
@@ -150,14 +115,10 @@ function validateSchoolType(newType) {
   return newType
 }
 
-// Очистка ошибки
 function clearError() {
   return null
 }
 
-/**
- * Форматирует диапазон дат для отображения
- */
 function formatDateRange(selectedDateRange) {
   if (!selectedDateRange || !selectedDateRange.start || !selectedDateRange.end) {
     return 'Выберите период'
@@ -176,20 +137,14 @@ function formatDateRange(selectedDateRange) {
   return `${format(start)} - ${format(end)}`
 }
 
-/**
- * Применяет выбранный диапазон дат
- */
 function applyDateRange(range, callback) {
   if (callback) callback(range)
   console.log('📅 Выбран диапазон:', range.start, 'до', range.end)
 }
 
-/**
- * Утилита для экспорта данных в TXT
- */
 function exportSchoolsToTxt(selectedSchools, allSchools) {
   if (selectedSchools.length === 0) {
-    alert('❌ Не выбрано ни одной школы для экспорта')
+    alert('Не выбрано ни одной школы для экспорта')
     return
   }
 
@@ -214,18 +169,13 @@ function exportSchoolsToTxt(selectedSchools, allSchools) {
   link.download = `schools_export_${new Date().toISOString().split('T')[0]}.txt`
   link.click()
 
-  alert(`✅ Экспортировано ${selectedData.length} школ в TXT файл`)
+  alert(`Экспортировано ${selectedData.length} школ в TXT файл`)
 }
-
-/**
- * Утилиты для фильтрации школ
- */
 
 function filterSchools(schools, searchSchools, searchValue, selectedStatus) {
   const sourceArray = searchValue.trim() !== '' ? searchSchools : schools
   let filtered = sourceArray
 
-  // Фильтрация по статусу
   if (selectedStatus !== 'all') {
     filtered = filtered.filter((school) => {
       const schoolStatus = school.status || 'Нет статуса'
@@ -238,7 +188,6 @@ function filterSchools(schools, searchSchools, searchValue, selectedStatus) {
     })
   }
 
-  // Фильтрация по поиску
   if (searchValue.trim() !== '') {
     const searchTerm = searchValue.toLowerCase().trim()
     filtered = filtered.filter((school) => {
@@ -250,11 +199,6 @@ function filterSchools(schools, searchSchools, searchValue, selectedStatus) {
   return filtered
 }
 
-/**
- * Утилиты для пагинации
- */
-
-// getDisplayedSchools - возвращает школы для текущей страницы (слайсит массив)
 function getDisplayedSchools(
   filteredSchools,
   schools,
@@ -264,19 +208,16 @@ function getDisplayedSchools(
   selectedPageSize
 ) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
-    // При поиске/фильтрации используем filteredSchools
     const startIndex = (filteredCurrentPage - 1) * selectedPageSize
     const endIndex = startIndex + selectedPageSize
     return filteredSchools.slice(startIndex, endIndex)
   } else {
-    // БЕЗ поиска/фильтрации тоже слайсим schools для текущей страницы
     const startIndex = (filteredCurrentPage - 1) * selectedPageSize
     const endIndex = startIndex + selectedPageSize
     return schools.slice(startIndex, endIndex)
   }
 }
 
-// getTotalPages - вычисляет общее количество страниц для пагинатора
 function getTotalPages(filteredSchools, totalPages, searchValue, selectedStatus, selectedPageSize) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
     return Math.ceil(filteredSchools.length / selectedPageSize)
@@ -285,7 +226,6 @@ function getTotalPages(filteredSchools, totalPages, searchValue, selectedStatus,
   }
 }
 
-// getCurrentPage - определяет какую страницу показывать в пагинаторе
 function getCurrentPage(filteredCurrentPage, currentPage, searchValue, selectedStatus) {
   if (searchValue.trim() !== '' || selectedStatus !== 'all') {
     return filteredCurrentPage
@@ -294,13 +234,8 @@ function getCurrentPage(filteredCurrentPage, currentPage, searchValue, selectedS
   }
 }
 
-/**
- * Утилиты для поиска с дебаунсом
- */
-
 let searchTimeout = null
 
-// Поиск с задержкой (дебаунс)
 function handleSearch(searchValue, callback) {
   clearTimeout(searchTimeout)
   searchTimeout = setTimeout(() => {
@@ -309,17 +244,11 @@ function handleSearch(searchValue, callback) {
   }, 300)
 }
 
-// Сброс поиска
 function clearSearch() {
   clearTimeout(searchTimeout)
   searchTimeout = null
 }
 
-/**
- * Утилиты для выбора школ (чекбоксы)
- */
-
-// Выбрать/снять все школы на текущей странице
 function handleSelectAll(selectedSchools, displayedSchools, isSelected) {
   if (isSelected) {
     const currentPageIds = displayedSchools.map((school) => school.uuid)
@@ -330,7 +259,6 @@ function handleSelectAll(selectedSchools, displayedSchools, isSelected) {
   }
 }
 
-// Выбрать/снять конкретную школу
 function handleSelectSchool(selectedSchools, schoolId, isSelected) {
   if (isSelected) {
     if (!selectedSchools.includes(schoolId)) {
@@ -342,31 +270,23 @@ function handleSelectSchool(selectedSchools, schoolId, isSelected) {
   return selectedSchools
 }
 
-/**
- * Утилиты для сортировки таблицы
- */
-
-// Основная функция сортировки
 function sortSchools(schools, sortBy, sortDirection) {
   if (!sortBy || !sortDirection) {
-    return schools // Возвращаем как есть если нет сортировки
+    return schools
   }
 
-  // Создаем копию массива чтобы не мутировать оригинал
   const sortedSchools = [...schools]
 
   sortedSchools.sort((a, b) => {
     const valueA = a[sortBy] || ''
     const valueB = b[sortBy] || ''
 
-    // Для строк используем localeCompare
     if (typeof valueA === 'string' && typeof valueB === 'string') {
       return sortDirection === 'asc'
         ? valueA.localeCompare(valueB, 'ru')
         : valueB.localeCompare(valueA, 'ru')
     }
 
-    // Для чисел и других типов
     if (valueA < valueB) return sortDirection === 'asc' ? -1 : 1
     if (valueA > valueB) return sortDirection === 'asc' ? 1 : -1
     return 0
@@ -375,24 +295,18 @@ function sortSchools(schools, sortBy, sortDirection) {
   return sortedSchools
 }
 
-// Функция для определения следующего направления сортировки
 function getNextSortDirection(currentSortBy, newSortBy, currentDirection) {
-  // Если кликнули на другую колонку - начинаем с возрастания
   if (currentSortBy !== newSortBy) {
     return 'asc'
   }
 
-  // Цикл: asc -> desc -> сброс
   if (currentDirection === 'asc') return 'desc'
   if (currentDirection === 'desc') return ''
   return 'asc'
 }
 
-// Делаем функции доступными глобально
 window.sortSchools = sortSchools
 window.getNextSortDirection = getNextSortDirection
-
-console.log('✅ sortUtils.js загружен')
 
 const BaseButton = {
   name: 'BaseButton',
@@ -456,7 +370,6 @@ const BaseCalendar = {
       const firstDay = new Date(this.currentYear, this.currentMonthIndex, 1)
       const lastDay = new Date(this.currentYear, this.currentMonthIndex + 1, 0)
 
-      // Дни предыдущего месяца
       const prevMonthLastDay = new Date(this.currentYear, this.currentMonthIndex, 0).getDate()
       const firstDayOfWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1
 
@@ -470,7 +383,6 @@ const BaseCalendar = {
         })
       }
 
-      // Дни текущего месяца
       for (let i = 1; i <= lastDay.getDate(); i++) {
         days.push({
           day: i,
@@ -480,7 +392,6 @@ const BaseCalendar = {
         })
       }
 
-      // Дни следующего месяца
       const totalCells = 42
       const nextMonthDays = totalCells - days.length
       for (let i = 1; i <= nextMonthDays; i++) {
@@ -505,26 +416,18 @@ const BaseCalendar = {
       return `${yyyy}-${mm}-${dd}`
     },
 
-    // НОВЫЙ МЕТОД: проверка disabled даты
     isDateDisabled(year, month, day) {
       const date = new Date(year, month, day)
       const today = new Date()
       today.setHours(0, 0, 0, 0)
-
-      // Отключаем только даты ПОСЛЕ сегодня (завтра и дальше)
-      // Сегодня и все прошлые даты - доступны
       return date > today
     },
 
     canSelectDate(date) {
       const dateObj = new Date(date)
       const today = new Date()
-
-      // Сравниваем только даты (без времени)
       const dateOnly = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())
       const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-
-      // Разрешаем все даты ДО сегодня включительно
       return dateOnly <= todayOnly
     },
 
@@ -553,8 +456,6 @@ const BaseCalendar = {
 
     isInRange(date) {
       if (!this.selectedRange.start || !this.selectedRange.end) return false
-
-      // Преобразуем в timestamp для правильного сравнения
       const dateTs = new Date(date).getTime()
       const startTs = new Date(this.selectedRange.start).getTime()
       const endTs = new Date(this.selectedRange.end).getTime()
@@ -573,7 +474,6 @@ const BaseCalendar = {
     },
 
     selectDate(date) {
-      // НОВАЯ ПРОВЕРКА: нельзя выбрать disabled дату
       if (!this.canSelectDate(date)) return
 
       if (!this.selectedRange.start || (this.selectedRange.start && this.selectedRange.end)) {
@@ -697,13 +597,11 @@ const BasePagination = {
   emits: ['page-change'],
 
   computed: {
-    // Вычисляем диапазон отображаемых страниц
     visiblePages() {
       const half = Math.floor(this.maxVisiblePages / 2)
       let start = Math.max(2, this.currentPage - half)
       let end = Math.min(this.totalPages - 1, start + this.maxVisiblePages - 1)
 
-      // Корректируем start если end достиг предела
       if (end === this.totalPages - 1) {
         start = Math.max(2, end - this.maxVisiblePages + 1)
       }
@@ -715,12 +613,10 @@ const BasePagination = {
       return pages
     },
 
-    // Нужно ли показывать многоточие в начале
     showStartEllipsis() {
       return this.visiblePages.length > 0 && this.visiblePages[0] > 2
     },
 
-    // Нужно ли показывать многоточие в конце
     showEndEllipsis() {
       return (
         this.visiblePages.length > 0 &&
@@ -739,14 +635,13 @@ const BasePagination = {
 
   template: `
     <div class="base-pagination" :class="{ 'base-pagination--disabled': disabled }">
-      <!-- Кнопка "Назад" -->
+
       <button
         class="base-pagination__nav"
         :disabled="disabled || currentPage === 1"
         @click="handlePageChange(currentPage - 1)"
         aria-label="Предыдущая страница"
       >
-        <!-- Стрелка влево через CSS -->
       </button>
 
       <!-- Номера страниц -->
@@ -761,7 +656,7 @@ const BasePagination = {
           1
         </button>
 
-        <!-- Многоточие после первой страницы -->
+
         <span v-if="showStartEllipsis" class="base-pagination__ellipsis"> ... </span>
 
         <!-- Основные страницы -->
@@ -778,10 +673,10 @@ const BasePagination = {
           {{ page }}
         </button>
 
-        <!-- Многоточие перед последней страницей -->
+
         <span v-if="showEndEllipsis" class="base-pagination__ellipsis"> ... </span>
 
-        <!-- Последняя страница (если больше 1) -->
+
         <button
           v-if="totalPages > 1"
           :class="[
@@ -795,14 +690,14 @@ const BasePagination = {
         </button>
       </div>
 
-      <!-- Кнопка "Вперед" -->
+
       <button
         class="base-pagination__nav"
         :disabled="disabled || currentPage === totalPages"
         @click="handlePageChange(currentPage + 1)"
         aria-label="Следующая страница"
       >
-        <!-- Стрелка вправо через CSS -->
+
       </button>
     </div>
   `,
@@ -955,12 +850,10 @@ const BaseTable = {
     getEducationTags(educationData) {
       if (!educationData) return []
 
-      // Если данные приходят в виде массива
       if (Array.isArray(educationData)) {
         return educationData
       }
 
-      // Если данные приходят в виде строки с разделителями
       if (typeof educationData === 'string') {
         return educationData
           .split(',')
@@ -1098,9 +991,6 @@ const BaseTable = {
   `,
 }
 
-console.log('🎯 app.js загрузка началась!')
-
-// ========== APP КОМПОНЕНТ ==========
 const App = {
   name: 'App',
 
@@ -1219,7 +1109,6 @@ const App = {
         start = (this.currentPage - 1) * this.selectedPageSize + 1
       }
 
-      // Не может быть больше общего количества записей
       const total =
         this.searchValue.trim() !== '' || this.selectedStatus !== 'all'
           ? this.filteredSchools.length
@@ -1243,10 +1132,7 @@ const App = {
     },
 
     displayedSchools() {
-      // Сначала применяем сортировку
       const sortedData = window.sortSchools(this.filteredSchools, this.sortBy, this.sortDirection)
-
-      // Потом пагинацию
       const startIndex = (this.filteredCurrentPage - 1) * this.selectedPageSize
       const endIndex = startIndex + this.selectedPageSize
       return sortedData.slice(startIndex, endIndex)
@@ -1265,7 +1151,6 @@ const App = {
     selectedStatus(newStatus, oldStatus) {
       this.filteredCurrentPage = 1
       if (newStatus === 'all' && oldStatus !== 'all') {
-        console.log('🔄 Возврат к "Все статусы"')
         this.currentPage = 1
         this.fetchSchools(1, this.selectedPageSize, this.currentRegion, false)
       }
@@ -1280,8 +1165,6 @@ const App = {
   },
 
   methods: {
-    // API методы
-
     async fetchSchools(page = 1, count = 10, regionId = null, isAppend = false) {
       if (!isAppend && page === 1) {
         this.schools = []
@@ -1293,9 +1176,7 @@ const App = {
 
       try {
         const safePage = Math.max(1, Math.min(page, 100))
-
         const response = await window.getSchools(safePage, count, regionId)
-
         const newSchools = window.transformSchoolData(response.list || [])
 
         if (isAppend) {
@@ -1312,12 +1193,7 @@ const App = {
 
         this.totalPages = Math.min(response.pages_count || 1, 100)
         this.currentPage = safePage
-
-        console.log(
-          `✅ Страница ${safePage} загружена. Для поиска: ${this.searchSchools.length} школ`
-        )
       } catch (err) {
-        console.log(`Ошибка загрузки страницы ${page}:`, err.message)
         this.error = `Страница ${page} временно недоступна. Попробуйте другую страницу.`
         if (!isAppend && page === 1) {
           this.schools = []
@@ -1331,7 +1207,6 @@ const App = {
       this.error = window.clearError()
     },
 
-    // Обработчики UI
     handlePageSizeChange(newSize) {
       window.handlePageSizeChange(newSize, this.fetchSchools, this.currentRegion)
     },
@@ -1357,8 +1232,6 @@ const App = {
 
       this.sortBy = columnKey
       this.sortDirection = newDirection
-
-      console.log(`🔄 Сортировка: ${columnKey}, направление: ${newDirection}`)
     },
     async handlePageChange(page) {
       this.errorPage = page
@@ -1408,7 +1281,6 @@ const App = {
 
     async loadRegions() {
       this.regions = await window.getRegions()
-      console.log('✅ Регионы загружены:', this.regions.length, 'шт.')
     },
 
     async init() {
@@ -1446,13 +1318,13 @@ const App = {
     </header>
 
     <main class="main-content">
-      <!-- БЕЛАЯ ПОЛОСА МЕЖДУ ШАПКОЙ И КОНТЕНТОМ -->
+
       <div class="content-spacer"></div>
 
-      <!-- ОСНОВНОЙ КОНТЕЙНЕР С СЕРЫМ ФОНОМ -->
+      <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
       <div class="page-container">
 
-        <!-- БЕЛЫЙ БЛОК С ТАБЛИЦЕЙ -->
+        <!-- БЛОК С ТАБЛИЦЕЙ -->
         <section class="table-section">
           <!-- ВЕРХНЯЯ ПАНЕЛЬ С ЗАГОЛОВКОМ И КНОПКАМИ -->
           <div class="table-header">
@@ -1564,7 +1436,7 @@ const App = {
 />
             </div>
 
-            <!-- НОВЫЙ КОНТЕЙНЕР ПАГИНАЦИИ ВНИЗУ -->
+            <!--КОНТЕЙНЕР ПАГИНАЦИИ ВНИЗУ -->
 <div class="table-pagination-container">
   <!-- ЛЕВАЯ ЧАСТЬ: ПАГИНАЦИЯ -->
   <div class="pagination-left">
@@ -1602,15 +1474,14 @@ const App = {
 }
 
 if (typeof Vue === 'undefined') {
-  console.error('❌ Vue не загружен! Проверь подключение в HTML.')
+  console.error(' Vue не загружен! Проверь подключение в HTML.')
 } else {
-  console.log('✅ Vue загружен! Создаем приложение...')
+  console.log(' Vue загружен! Создаем приложение...')
 
   const { createApp } = Vue
 
   const app = createApp(App)
 
-  // РЕГИСТРИРУЕМ ВСЕ КОМПОНЕНТЫ
   const components = [
     ['BaseButton', BaseButton],
     ['BaseInput', BaseInput],
@@ -1623,9 +1494,9 @@ if (typeof Vue === 'undefined') {
   components.forEach(([name, component]) => {
     if (typeof component !== 'undefined') {
       app.component(name, component)
-      console.log(`✅ ${name} зарегистрирован!`)
+      console.log(` ${name} зарегистрирован!`)
     } else {
-      console.error(`❌ ${name} НЕ найден!`)
+      console.error(` ${name} НЕ найден!`)
     }
   })
 

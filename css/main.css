@@ -1688,7 +1688,6 @@ img {
   flex-direction: column;
 }
 
-/* Верхняя часть с логотипами - 216px */
 .tech-header {
   height: 216px;
   padding: 16px 0;
@@ -1697,7 +1696,6 @@ img {
   align-items: flex-start;
 }
 
-/* Контейнер для лого и контактов - 120px высотой */
 .tech-header > .header-container {
   width: 100%;
   height: 120px;
@@ -1707,7 +1705,6 @@ img {
   padding: 0 32px;
 }
 
-/* Остальные стили остаются без изменений */
 .header-left .logo {
   width: 84px;
   height: 84px;
@@ -1769,7 +1766,6 @@ img {
   font-size: 12px;
 }
 
-/* Нижняя часть с "Тестовое задание" - 156px */
 .tech-head-container {
   height: 156px;
   padding: 0 32px;
